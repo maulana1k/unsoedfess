@@ -1,6 +1,8 @@
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:unsoedfess/screens/channel_page.dart';
 
 class ChannelsPage extends StatefulWidget {
   const ChannelsPage({super.key});
@@ -13,141 +15,152 @@ class _ChannelsPageState extends State<ChannelsPage> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 3,
-      child: Scaffold(
-        // backgroundColor: Colors.grey.shade100,
-        appBar: AppBar(
+      length: 2,
+      child: SafeArea(
+        child: Scaffold(
           backgroundColor: Colors.white,
-          scrolledUnderElevation: 0,
-          // leading: const Icon(FluentIcons.people_team_32_regular),
-          actions: [IconButton(onPressed: () {}, icon: const Icon(FluentIcons.search_16_filled))],
-          title: Text('Menfess Channels',
-              style: GoogleFonts.nunitoSans(fontWeight: FontWeight.w800).copyWith(fontSize: 24)),
-          bottom: const TabBar(
-              labelStyle: TextStyle(fontWeight: FontWeight.bold),
-              splashFactory: NoSplash.splashFactory,
-              unselectedLabelColor: Colors.grey,
-              labelColor: Colors.black,
-              indicatorColor: Colors.black,
-              tabs: [
-                Tab(child: Text('Explore')),
-                Tab(child: Text('Joined')),
-                // Tab(child: Text('Setting')),
-              ]),
+          body: NestedScrollView(
+              floatHeaderSlivers: true,
+              headerSliverBuilder: (context, innerBoxIsScrolled) {
+                return [
+                  SliverAppBar(
+                    backgroundColor: Colors.white,
+                    scrolledUnderElevation: 0,
+                    leading: const Icon(FluentIcons.channel_48_filled, size: 34),
+                    // leading: const Icon(FluentIcons.people_team_32_regular),
+                    title: Text('Channels',
+                        style: GoogleFonts.nunitoSans(fontWeight: FontWeight.w800)
+                            .copyWith(fontSize: 24)),
+                    bottom: const TabBar(
+                        labelStyle: TextStyle(fontWeight: FontWeight.bold),
+                        splashFactory: NoSplash.splashFactory,
+                        unselectedLabelColor: Colors.grey,
+                        labelColor: Colors.black,
+                        indicatorColor: Colors.black,
+                        tabs: [
+                          Tab(child: Text('Explore')),
+                          Tab(child: Text('Joined')),
+                          // Tab(child: Text('Setting')),
+                        ]),
+                  )
+                ];
+              },
+              body: const TabBarView(
+                  physics: NeverScrollableScrollPhysics(),
+                  children: [ChannelList(), ChannelList()])),
         ),
-        body: TabBarView(children: [
-          ListView(
-            // crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 32),
-                child: const Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Icon(FluentIcons.comment_mention_24_filled, color: Colors.black, size: 60),
-                    SizedBox(width: 15),
-                    Expanded(
-                      child: Text(
-                        'Join the channels and send anonymous messages',
-                        style: TextStyle(
-                            fontSize: 16, color: Colors.black, fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 5),
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  // border: Border.all(color: Colors.grey.shade300),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.2),
-                      spreadRadius: 5,
-                      blurRadius: 7,
-                      offset: const Offset(0, 0), // changes position of shadow
-                    ),
-                  ],
-                  borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Padding(
-                      padding: EdgeInsets.all(16),
-                      child: Text('Popular',
-                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
-                    ),
-                    GridView.count(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      mainAxisSpacing: 5,
-                      crossAxisSpacing: 5,
-                      crossAxisCount: 2,
-                      // childAspectRatio: 3 / 4,
-                      children: List.generate(7, (index) {
-                        return const ChannelCard();
-                      }),
-                    ),
-                  ],
-                ),
-              ),
-            ],
+      ),
+    );
+  }
+}
+
+class ChannelList extends StatelessWidget {
+  const ChannelList({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            height: 36,
+            margin: const EdgeInsets.all(16),
+            decoration:
+                BoxDecoration(color: Colors.grey.shade200, borderRadius: BorderRadius.circular(20)),
+            child: const TextField(
+              decoration: InputDecoration(
+                  prefixIcon: Icon(FluentIcons.search_32_regular, size: 20),
+                  contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 20),
+                  hintText: "Search",
+                  hintStyle: TextStyle(fontSize: 15),
+                  border: OutlineInputBorder(borderSide: BorderSide.none)),
+            ),
           ),
-          ListView(
-            // crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 32),
-                child: const Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Icon(FluentIcons.comment_mention_24_filled, color: Colors.white, size: 60),
-                    SizedBox(width: 15),
-                    Expanded(
-                      child: Text(
-                        'Join the channels and send anonymous messages',
-                        style: TextStyle(
-                            fontSize: 16, color: Colors.white, fontWeight: FontWeight.bold),
+          Column(
+            // childAspectRatio: 3 / 4,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: List.generate(7, (index) {
+              return InkWell(
+                onTap: () {
+                  Navigator.push(
+                      context, CupertinoPageRoute(builder: (context) => const ChannelPage()));
+                },
+                child: Container(
+                  height: 100,
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  margin: const EdgeInsets.symmetric(vertical: 10),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Container(
+                        width: 120,
+                        decoration: BoxDecoration(
+                          image: const DecorationImage(
+                              image: NetworkImage(
+                                  'https://akcdn.detik.net.id/community/media/visual/2022/01/11/kampus-itb.png?w=700&q=90'),
+                              fit: BoxFit.cover),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
                       ),
-                    ),
-                  ],
+                      const SizedBox(width: 16),
+                      const Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text('Unsoed Kita',
+                                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                                overflow: TextOverflow.ellipsis),
+                            Text(
+                                'Tempat tanya, sharing dan cari jodoh jika beruntung 🤪 tapi bukan tempat ribut yaaa',
+                                style: TextStyle(fontSize: 12),
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 2),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  children: [
+                                    Icon(FluentIcons.person_16_regular, size: 18),
+                                    Text(' 2.235',
+                                        style: TextStyle(
+                                            color: Colors.black87,
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.normal)),
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    Icon(FluentIcons.comment_mention_16_regular, size: 18),
+                                    Text(' 153',
+                                        style: TextStyle(
+                                            color: Colors.black87,
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.normal))
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    CircleAvatar(radius: 10),
+                                    CircleAvatar(radius: 10),
+                                    CircleAvatar(radius: 10),
+                                  ],
+                                )
+                              ],
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
                 ),
-              ),
-              const SizedBox(height: 5),
-              Container(
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Padding(
-                      padding: EdgeInsets.all(16),
-                      child: Text('Popular Channels',
-                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
-                    ),
-                    GridView.count(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      mainAxisSpacing: 5,
-                      crossAxisSpacing: 5,
-                      crossAxisCount: 2,
-                      childAspectRatio: 3 / 4,
-                      children: List.generate(7, (index) {
-                        return const ChannelCard();
-                      }),
-                    ),
-                  ],
-                ),
-              ),
-            ],
+              );
+            }),
           ),
-        ]),
+        ],
       ),
     );
   }
@@ -218,7 +231,7 @@ class ChannelCard extends StatelessWidget {
                         image: NetworkImage(
                             'https://akcdn.detik.net.id/community/media/visual/2022/01/11/kampus-itb.png?w=700&q=90'),
                         fit: BoxFit.cover),
-                    borderRadius: BorderRadius.circular(16),
+                    borderRadius: BorderRadius.circular(8),
                   )),
                   Positioned(
                       bottom: 5,
@@ -244,38 +257,8 @@ class ChannelCard extends StatelessWidget {
             const SizedBox(height: 5),
             const Text(
               'Militan Teknik',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
             ),
-            // const Row(
-            //   children: [
-            //     Row(
-            //       crossAxisAlignment: CrossAxisAlignment.start,
-            //       children: [
-            //         // Icon(FluentIcons.person_24_regular, size: 16),
-            //         // SizedBox(width: 5),
-            //         Text('5.1K Joined', style: TextStyle(fontSize: 14)),
-            //       ],
-            //     ),
-            // Spacer(),
-            // Expanded(
-            //   child: Stack(
-            //     children: [
-            //       CircleAvatar(
-            //         radius: 10,
-            //         backgroundImage: NetworkImage(
-            //             'https://berita.yodu.id/wp-content/uploads/2023/02/profil-onic-kayes.jpg'),
-            //       ),
-            //       Positioned(
-            //         left: 15,
-            //         child: CircleAvatar(
-            //             radius: 10,
-            //             backgroundImage: NetworkImage('https://bit.ly/dan-abramov')),
-            //       ),
-            //     ],
-            //   ),
-            // )
-            //   ],
-            // ),
           ],
         ),
       ),

@@ -34,12 +34,12 @@ class _CustomNavbarState extends State<CustomNavbar> {
                 selectedIcon: Icon(FluentIcons.search_12_filled),
                 label: 'Search'),
             const NavigationDestination(
-                icon: Icon(FluentIcons.mention_20_regular),
-                selectedIcon: Icon(FluentIcons.mention_20_filled),
+                icon: Icon(FluentIcons.channel_16_regular),
+                selectedIcon: Icon(FluentIcons.channel_16_filled),
                 label: 'Channel'),
             const NavigationDestination(
-                icon: Icon(FluentIcons.mail_inbox_16_regular),
-                selectedIcon: Icon(FluentIcons.mail_inbox_16_filled),
+                icon: Icon(FluentIcons.chat_multiple_16_regular),
+                selectedIcon: Icon(FluentIcons.chat_multiple_16_filled),
                 label: 'Messages'),
             NavigationDestination(
                 icon: const CircleAvatar(

@@ -73,7 +73,7 @@ class _PostPageState extends State<PostPage> {
                     ),
                     const SizedBox(height: 12),
                     const Text(
-                      'Ngonser tadi malem',
+                      'Baru selesai nonton ice cold, makin besar kemungkinan bukan Jesicca yang membunuh Mirna. Sepertinya \n "Ada sutradara dibalik kasus ini"',
                       style: TextStyle(fontSize: 18),
                     ),
                     const SizedBox(height: 12),

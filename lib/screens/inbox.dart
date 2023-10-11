@@ -31,16 +31,21 @@ class _InboxPageState extends State<InboxPage> {
         ),
         actions: [IconButton(onPressed: () {}, icon: const Icon(FluentIcons.search_16_filled))],
       ),
-      body: ListView(physics: const BouncingScrollPhysics(), children: const [
-        NamedChat(),
-        AnonymChat(),
-        NamedChat(),
-        AnonymChat(),
-        AnonymChat(),
-        AnonymChat(),
-        AnonymChat(),
-        AnonymChat(),
-      ]),
+      body: const SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
+        child: Column(
+          children: [
+            NamedChat(),
+            AnonymChat(),
+            NamedChat(),
+            AnonymChat(),
+            AnonymChat(),
+            AnonymChat(),
+            AnonymChat(),
+            AnonymChat(),
+          ],
+        ),
+      ),
     );
   }
 }
@@ -55,43 +60,37 @@ class NamedChat extends StatelessWidget {
     return InkWell(
       onTap: () {},
       child: Container(
-        width: double.infinity,
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-        // decoration: BoxDecoration(border: Border(bottom: BorderSide(color: Colors.grey.shade200))),
-        child: const Expanded(
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              CircleAvatar(
-                radius: 24,
-                backgroundImage: NetworkImage('https://bit.ly/dan-abramov'),
+        child: const Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            CircleAvatar(
+              radius: 24,
+              backgroundImage: NetworkImage('https://bit.ly/dan-abramov'),
+            ),
+            SizedBox(width: 10),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('kevin.larr',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                      )),
+                  Row(
+                    children: [
+                      Text('Lagi sibuk gak?',
+                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                      SizedBox(width: 8),
+                      Icon(FluentIcons.circle_12_filled, color: Colors.blue, size: 10)
+                    ],
+                  ),
+                ],
               ),
-              SizedBox(width: 10),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('kevin.larr',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
-                        )),
-                    // SizedBox(height: 6),
-                    Row(
-                      children: [
-                        Text('Lagi sibuk gak?',
-                            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                        SizedBox(width: 8),
-                        Icon(FluentIcons.circle_12_filled, color: Colors.blue, size: 10)
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              Text('4h', style: TextStyle(color: Colors.grey, fontSize: 14)),
-              // Text('23m', style: TextStyle(fontSize: 14)),
-            ],
-          ),
+            ),
+            Text('4h', style: TextStyle(color: Colors.grey, fontSize: 14)),
+          ],
         ),
       ),
     );
@@ -115,19 +114,17 @@ class AnonymChat extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12),
                   color: Colors.white,
-                  // border: Border.all(color: Colors.black87, width: 4)
                 ),
                 child: IntrinsicHeight(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
-                        width: double.infinity,
                         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
                         decoration: const BoxDecoration(color: Colors.black87),
                         child: const Row(
                           children: [
-                            Icon(FluentIcons.mention_20_filled, color: Colors.white),
+                            Icon(FluentIcons.person_16_regular, color: Colors.white),
                             SizedBox(width: 6),
                             Text(
                               'anonym',
@@ -172,34 +169,25 @@ class AnonymChat extends StatelessWidget {
       child: Container(
         width: double.infinity,
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-        // decoration: BoxDecoration(border: Border(bottom: BorderSide(color: Colors.grey.shade200))),
-        child: Expanded(
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Icon(FluentIcons.mention_32_regular, size: 48),
-              CircleAvatar(
-                radius: 24,
-                backgroundColor: Colors.grey.shade200,
-                child: const Icon(FluentIcons.person_12_regular, size: 26),
-              ),
-              const SizedBox(width: 10),
-              const Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('anonym', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-                    // SizedBox(height: 6),
-                    Text(
-                      'Lagi sibuk gak?',
-                      style: TextStyle(fontSize: 16),
-                    ),
-                  ],
-                ),
-              ),
-              const Text('53m', style: TextStyle(color: Colors.grey, fontSize: 14)),
-            ],
-          ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            CircleAvatar(
+              radius: 24,
+              backgroundColor: Colors.grey.shade200,
+              child: const Icon(FluentIcons.person_16_regular, size: 24),
+            ),
+            const SizedBox(width: 10),
+            const Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('anonym', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                // SizedBox(height: 6),
+                Text('Kenalan yukk', style: TextStyle(fontSize: 16)),
+              ],
+            ),
+            const Text('53m', style: TextStyle(color: Colors.grey, fontSize: 14)),
+          ],
         ),
       ),
     );

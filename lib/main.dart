@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:unsoedfess/screens/home.dart';
-// import 'package:unsoedfess/screens/onboard.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import 'screens/main_screen.dart';
+// import 'package:unsoedfess/screens/main_screen.dart';
+import 'package:unsoedfess/screens/splashscreen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,7 +22,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueAccent),
         useMaterial3: true,
       ),
-      home: const MainScreen(),
+      home: const SplashScreen(),
     );
   }
 }

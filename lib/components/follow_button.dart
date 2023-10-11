@@ -34,34 +34,31 @@ class _FollowButtonState extends State<FollowButton> {
                             color: Colors.grey.shade200,
                           )),
                       const Padding(
-                        padding: EdgeInsets.only(bottom: 20, top: 10),
-                        child: Text('felicia.angel_',
-                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
-                      ),
+                          padding: EdgeInsets.only(bottom: 20, top: 10),
+                          child: Text('felicia.angel_',
+                              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20))),
                       Container(
-                        // padding: const EdgeInsets.all(10),
+                        margin: const EdgeInsets.only(bottom: 30),
                         decoration: BoxDecoration(
                             color: Colors.grey.shade100, borderRadius: BorderRadius.circular(10)),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                              child: Text('Add to favorite',
-                                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
-                            ),
+                                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                                child: Text('Add to favorite',
+                                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold))),
                             Divider(height: 0, color: Colors.grey.shade300),
                             const Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                              child: Text('Mute',
-                                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
-                            ),
+                                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                                child: Text('Mute',
+                                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold))),
                             Divider(height: 0, color: Colors.grey.shade300),
                             const Padding(
                               padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                               child: Text('Unfollow',
                                   style: TextStyle(
-                                      fontSize: 14,
+                                      fontSize: 16,
                                       color: Colors.redAccent,
                                       fontWeight: FontWeight.bold)),
                             ),

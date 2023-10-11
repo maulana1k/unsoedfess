@@ -15,8 +15,7 @@ class ProfilePage extends StatefulWidget {
   State<ProfilePage> createState() => _ProfilePageState();
 }
 
-class _ProfilePageState extends State<ProfilePage>
-    with TickerProviderStateMixin {
+class _ProfilePageState extends State<ProfilePage> with TickerProviderStateMixin {
   late final TabController _tabController;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -60,15 +59,9 @@ class _ProfilePageState extends State<ProfilePage>
                     splashFactory: NoSplash.splashFactory,
                     indicatorWeight: 1,
                     tabs: const [
-                      Tab(
-                          child: Text('Posts',
-                              style: TextStyle(fontWeight: FontWeight.bold))),
-                      Tab(
-                          child: Text('Replies',
-                              style: TextStyle(fontWeight: FontWeight.bold))),
-                      Tab(
-                          child: Text('Media',
-                              style: TextStyle(fontWeight: FontWeight.bold))),
+                      Tab(child: Text('Posts', style: TextStyle(fontWeight: FontWeight.bold))),
+                      Tab(child: Text('Replies', style: TextStyle(fontWeight: FontWeight.bold))),
+                      Tab(child: Text('Media', style: TextStyle(fontWeight: FontWeight.bold))),
                     ]),
               )
             ];
@@ -112,10 +105,11 @@ class ProfileInformation extends StatelessWidget {
           child: GestureDetector(
             onTap: () {
               showDialog(
+                  barrierColor: Colors.transparent,
                   context: context,
                   builder: (context) {
                     return BackdropFilter(
-                      filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
+                      filter: ImageFilter.blur(sigmaX: 8, sigmaY: 8, tileMode: TileMode.mirror),
                       child: const Center(
                         child: CircleAvatar(
                           radius: 130,
@@ -139,8 +133,7 @@ class ProfileInformation extends StatelessWidget {
         const SizedBox(height: 5),
         const Text('very good very well ', style: TextStyle(fontSize: 16)),
         const SizedBox(height: 5),
-        const Text('linktr.ee/feliciangel ',
-            style: TextStyle(fontSize: 16, color: Colors.blue)),
+        const Text('linktr.ee/feliciangel ', style: TextStyle(fontSize: 16, color: Colors.blue)),
         const SizedBox(height: 10),
         const IntrinsicHeight(
           child: Row(
@@ -148,42 +141,28 @@ class ProfileInformation extends StatelessWidget {
             children: [
               Column(
                 children: [
-                  Text('64',
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+                  Text('64', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
                   Text('Posts',
-                      style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.grey)),
+                      style:
+                          TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.grey)),
                 ],
               ),
-              VerticalDivider(
-                  thickness: 1, width: 50, indent: 12, endIndent: 12),
+              VerticalDivider(thickness: 1, width: 50, indent: 12, endIndent: 12),
               Column(
                 children: [
-                  Text('1.389',
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+                  Text('1.389', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
                   Text('Follower',
-                      style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.grey)),
+                      style:
+                          TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.grey)),
                 ],
               ),
-              VerticalDivider(
-                  thickness: 1, width: 50, indent: 12, endIndent: 12),
+              VerticalDivider(thickness: 1, width: 50, indent: 12, endIndent: 12),
               Column(
                 children: [
-                  Text('903',
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+                  Text('903', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
                   Text('Following',
-                      style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.grey)),
+                      style:
+                          TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.grey)),
                 ],
               ),
             ],
