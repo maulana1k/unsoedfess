@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:unsoedfess/screens/home.dart';
-import 'package:unsoedfess/screens/story.dart';
+// import 'package:unsoedfess/screens/home.dart';
+import 'package:unsoedfess/features/story/story.dart';
 
 class StoryCard extends StatelessWidget {
   final bool isOpen;
@@ -74,19 +74,20 @@ class ScaleUpPageRoute extends PageRouteBuilder {
 
   ScaleUpPageRoute({required this.page})
       : super(
-          transitionDuration: const Duration(milliseconds: 300),
+          transitionDuration: const Duration(milliseconds: 400),
           pageBuilder: (context, animation, secondaryAnimation) => page,
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            const begin = Offset(0, -1);
+            const begin = Offset(0, 0);
             const end = Offset.zero;
             const curve = Curves.fastOutSlowIn;
-            const beginScale = 0.0;
+            const beginScale = 0.3;
             const endScale = 1.0;
 
             var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
             var offsetAnimation = animation.drive(tween);
 
-            var scaleTween = Tween(begin: beginScale, end: endScale);
+            var scaleTween =
+                Tween(begin: beginScale, end: endScale).chain(CurveTween(curve: curve));
             var scaleAnimation = animation.drive(scaleTween);
 
             return ScaleTransition(

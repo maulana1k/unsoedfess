@@ -1,12 +1,12 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:unsoedfess/components/menfess_card.dart';
-import 'package:unsoedfess/components/post_card.dart';
+import 'package:unsoedfess/features/cards/menfess_card.dart';
+import 'package:unsoedfess/features/cards/post_card.dart';
 
-import '../components/follow_button.dart';
-import '../components/message_button.dart';
-import '../components/more_button.dart';
+import 'follow_button.dart';
+import 'message_button.dart';
+import 'more_button.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -41,6 +41,7 @@ class _ProfilePageState extends State<ProfilePage> with TickerProviderStateMixin
           backgroundColor: Colors.white,
           title: const Text('felica.angel_',
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+          actions: const [MoreButton()],
         ),
         body: NestedScrollView(
           headerSliverBuilder: (context, innerBoxIsScrolled) {
@@ -112,7 +113,7 @@ class ProfileInformation extends StatelessWidget {
                       filter: ImageFilter.blur(sigmaX: 8, sigmaY: 8, tileMode: TileMode.mirror),
                       child: const Center(
                         child: CircleAvatar(
-                          radius: 130,
+                          radius: 150,
                           backgroundImage: NetworkImage(
                               'https://berita.yodu.id/wp-content/uploads/2023/02/profil-onic-kayes.jpg'),
                         ),
@@ -131,9 +132,9 @@ class ProfileInformation extends StatelessWidget {
         const Text('Felicia Angelique',
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
         const SizedBox(height: 5),
-        const Text('very good very well ', style: TextStyle(fontSize: 16)),
+        const Text('very good very well', style: TextStyle(fontSize: 16)),
         const SizedBox(height: 5),
-        const Text('linktr.ee/feliciangel ', style: TextStyle(fontSize: 16, color: Colors.blue)),
+        const Text('bit.ly/feliciangel', style: TextStyle(fontSize: 16, color: Colors.blue)),
         const SizedBox(height: 10),
         const IntrinsicHeight(
           child: Row(
@@ -176,8 +177,8 @@ class ProfileInformation extends StatelessWidget {
               FollowButton(),
               SizedBox(width: 6),
               MessageButton(),
-              SizedBox(width: 6),
-              MoreButton(),
+              // SizedBox(width: 6),
+              // MoreButton(),
             ],
           ),
         ),

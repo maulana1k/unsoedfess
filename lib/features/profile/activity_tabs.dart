@@ -1,7 +1,6 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:unsoedfess/components/menfess_card.dart';
-import 'package:unsoedfess/components/post_card.dart';
+import 'package:unsoedfess/features/cards/menfess_card.dart';
+import 'package:unsoedfess/features/cards/post_card.dart';
 
 class ActivityTabs extends StatefulWidget {
   const ActivityTabs({super.key});
@@ -46,25 +45,23 @@ class _ActivityTabsState extends State<ActivityTabs> with TickerProviderStateMix
                 Tab(child: Text('Media', style: TextStyle(fontWeight: FontWeight.bold))),
               ]),
           // const SizedBox(height: 10),
-          Container(
-            child: TabBarView(
-                physics: const NeverScrollableScrollPhysics(),
-                controller: _tabController,
-                children: const <Widget>[
-                  Column(
-                    children: [
-                      PostCard(),
-                      PostCard(),
-                    ],
-                  ),
-                  Column(
-                    children: [MenfessCard()],
-                  ),
-                  Column(
-                    children: [MenfessCard()],
-                  )
-                ]),
-          )
+          TabBarView(
+              physics: const NeverScrollableScrollPhysics(),
+              controller: _tabController,
+              children: const <Widget>[
+                Column(
+                  children: [
+                    PostCard(),
+                    PostCard(),
+                  ],
+                ),
+                Column(
+                  children: [MenfessCard()],
+                ),
+                Column(
+                  children: [MenfessCard()],
+                )
+              ])
         ],
       ),
     );

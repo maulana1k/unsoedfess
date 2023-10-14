@@ -1,10 +1,8 @@
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:unsoedfess/screens/post.dart';
-import 'package:unsoedfess/screens/profile.dart';
-
-import 'image_carousel.dart';
+import 'package:unsoedfess/features/post/post.dart';
+import 'package:unsoedfess/features/profile/profile.dart';
 
 class PostCard extends StatefulWidget {
   const PostCard({
@@ -45,7 +43,7 @@ class _PostCardState extends State<PostCard> {
                     InkWell(
                       onTap: () {
                         Navigator.push(
-                            context, MaterialPageRoute(builder: (context) => const ProfilePage()));
+                            context, CupertinoPageRoute(builder: (context) => const ProfilePage()));
                       },
                       child: const CircleAvatar(
                           radius: 18,

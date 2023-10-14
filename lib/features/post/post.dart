@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 
-import '../components/image_carousel.dart';
+import '../cards/image_carousel.dart';
 
 class PostPage extends StatefulWidget {
   const PostPage({super.key});
@@ -129,23 +129,20 @@ class _PostPageState extends State<PostPage> {
                     radius: 14, backgroundImage: NetworkImage('https://bit.ly/dan-abramov')),
                 const SizedBox(width: 4),
                 const Expanded(
-                  child: SizedBox(
-                    height: 60,
-                    child: TextField(
-                      keyboardType: TextInputType.multiline,
-                      maxLines: null,
-                      decoration: InputDecoration(
-                          isDense: true,
-                          hintText: 'Write a reply',
-                          border: OutlineInputBorder(borderSide: BorderSide.none)),
-                    ),
+                  child: TextField(
+                    keyboardType: TextInputType.multiline,
+                    maxLines: null,
+                    decoration: InputDecoration(
+                        isDense: true,
+                        hintText: 'Write a reply',
+                        border: OutlineInputBorder(borderSide: BorderSide.none)),
                   ),
                 ),
                 TextButton(
                     onPressed: () {},
                     child: const Text(
                       'Send',
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      style: TextStyle(fontWeight: FontWeight.bold, color: Colors.blue),
                     ))
               ],
             ),

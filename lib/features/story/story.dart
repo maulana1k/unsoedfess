@@ -1,7 +1,7 @@
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:unsoedfess/screens/profile.dart';
+import 'package:unsoedfess/features/profile/profile.dart';
 
 class StoryView extends StatefulWidget {
   const StoryView({super.key});

@@ -2,12 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:unsoedfess/screens/add_post.dart';
-import 'package:unsoedfess/screens/notification.dart';
+import 'package:unsoedfess/features/create_post/create_post.dart';
+import 'package:unsoedfess/features/home/notification.dart';
 
-import '../components/menfess_card.dart';
-import '../components/post_card.dart';
-import '../components/story_card.dart';
+import 'package:unsoedfess/features/cards/menfess_card.dart';
+import 'package:unsoedfess/features/cards/post_card.dart';
+import 'package:unsoedfess/features/cards/story_card.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -24,7 +24,7 @@ class HomePage extends StatelessWidget {
               SliverAppBar(
                 backgroundColor: Colors.white,
                 title: Text('Unsoedfess',
-                    style: GoogleFonts.merriweather(fontWeight: FontWeight.w800)
+                    style: GoogleFonts.merriweather(fontWeight: FontWeight.w900)
                         .copyWith(fontSize: 24)),
                 actions: [
                   Padding(
@@ -86,7 +86,7 @@ class HomePage extends StatelessWidget {
           backgroundColor: Colors.black,
           elevation: 16,
           onPressed: () {
-            Navigator.push(context, SlideUpPageRoute(page: const AddPost()));
+            Navigator.push(context, SlideUpPageRoute(page: const CreatePost()));
           },
           child: const Icon(FluentIcons.add_16_filled, color: Colors.white),
         ),
@@ -100,7 +100,7 @@ class SlideUpPageRoute extends PageRouteBuilder {
 
   SlideUpPageRoute({required this.page})
       : super(
-          transitionDuration: const Duration(milliseconds: 400),
+          transitionDuration: const Duration(milliseconds: 300),
           pageBuilder: (context, animation, secondaryAnimation) => page,
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             const begin = Offset(0, 1);
@@ -120,12 +120,12 @@ class SlideDownPageRoute extends PageRouteBuilder {
 
   SlideDownPageRoute({required this.page})
       : super(
-          transitionDuration: const Duration(milliseconds: 400),
+          transitionDuration: const Duration(milliseconds: 300),
           pageBuilder: (context, animation, secondaryAnimation) => page,
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            const begin = Offset(0, -1); // Slide down from the top
+            const begin = Offset(0, 100);
             const end = Offset.zero;
-            const curve = Curves.easeOut;
+            const curve = Curves.fastEaseInToSlowEaseOut;
 
             var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
             var offsetAnimation = animation.drive(tween);

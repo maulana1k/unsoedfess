@@ -2,7 +2,7 @@ import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:unsoedfess/screens/channel_page.dart';
+import 'package:unsoedfess/features/channels/channel_page.dart';
 
 class ChannelsPage extends StatefulWidget {
   const ChannelsPage({super.key});
@@ -26,7 +26,7 @@ class _ChannelsPageState extends State<ChannelsPage> {
                   SliverAppBar(
                     backgroundColor: Colors.white,
                     scrolledUnderElevation: 0,
-                    leading: const Icon(FluentIcons.channel_48_filled, size: 34),
+                    // leading: const Icon(FluentIcons.channel_48_filled, size: 34),
                     // leading: const Icon(FluentIcons.people_team_32_regular),
                     title: Text('Channels',
                         style: GoogleFonts.nunitoSans(fontWeight: FontWeight.w800)
@@ -47,15 +47,15 @@ class _ChannelsPageState extends State<ChannelsPage> {
               },
               body: const TabBarView(
                   physics: NeverScrollableScrollPhysics(),
-                  children: [ChannelList(), ChannelList()])),
+                  children: [ChannelListTile(), ChannelListTile()])),
         ),
       ),
     );
   }
 }
 
-class ChannelList extends StatelessWidget {
-  const ChannelList({
+class ChannelListTile extends StatelessWidget {
+  const ChannelListTile({
     super.key,
   });
 
@@ -100,7 +100,7 @@ class ChannelList extends StatelessWidget {
                         decoration: BoxDecoration(
                           image: const DecorationImage(
                               image: NetworkImage(
-                                  'https://akcdn.detik.net.id/community/media/visual/2022/01/11/kampus-itb.png?w=700&q=90'),
+                                  'https://akcdn.detik.net.id/community/media/visual/2021/03/13/kampus-universitas-indonesia-dok-istimewa.jpeg?w=700&q=90'),
                               fit: BoxFit.cover),
                           borderRadius: BorderRadius.circular(8),
                         ),

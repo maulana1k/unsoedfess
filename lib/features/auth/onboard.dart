@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:unsoedfess/screens/signin.dart';
+import 'package:unsoedfess/features/auth/signin.dart';
 
 class Onboard extends StatefulWidget {
   const Onboard({super.key});

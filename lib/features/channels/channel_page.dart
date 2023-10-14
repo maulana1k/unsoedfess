@@ -2,7 +2,7 @@ import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:google_fonts/google_fonts.dart';
-import 'package:unsoedfess/components/menfess_card.dart';
+import 'package:unsoedfess/features/cards/menfess_card.dart';
 
 class ChannelPage extends StatefulWidget {
   const ChannelPage({super.key});
@@ -21,15 +21,16 @@ class _ChannelPageState extends State<ChannelPage> {
           children: [
             Container(
               width: double.infinity,
-              height: 180,
-              decoration: const BoxDecoration(
-                  image: DecorationImage(
+              height: 200,
+              decoration: BoxDecoration(
+                  border: Border(bottom: BorderSide(color: Colors.grey.shade300)),
+                  image: const DecorationImage(
                       image: NetworkImage(
-                          'https://akcdn.detik.net.id/community/media/visual/2022/01/11/kampus-itb.png?w=700&q=90'),
+                          'https://akcdn.detik.net.id/community/media/visual/2021/03/13/kampus-universitas-indonesia-dok-istimewa.jpeg?w=700&q=90'),
                       fit: BoxFit.cover)),
             ),
             Container(
-              color: Colors.white,
+              decoration: const BoxDecoration(color: Colors.white),
               padding: const EdgeInsets.all(16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:unsoedfess/components/custom_navbar.dart';
-import 'package:unsoedfess/screens/channels.dart';
-import 'package:unsoedfess/screens/home.dart';
-import 'package:unsoedfess/screens/inbox.dart';
-import 'package:unsoedfess/screens/profile.dart';
-import 'package:unsoedfess/screens/search.dart';
+import 'package:unsoedfess/features/main_screen/custom_navbar.dart';
+import 'package:unsoedfess/features/channels/channels.dart';
+import 'package:unsoedfess/features/home/home_page.dart';
+import 'package:unsoedfess/features/messages/messages.dart';
+import 'package:unsoedfess/features/profile/profile.dart';
+import 'package:unsoedfess/features/explore/explore.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});

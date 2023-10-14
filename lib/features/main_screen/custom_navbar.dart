@@ -26,20 +26,24 @@ class _CustomNavbarState extends State<CustomNavbar> {
           labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
           destinations: [
             const NavigationDestination(
-                icon: Icon(FluentIcons.home_12_regular),
-                selectedIcon: Icon(FluentIcons.home_12_filled),
+                icon: Icon(FluentIcons.home_16_regular),
+                selectedIcon: Icon(FluentIcons.home_16_filled),
                 label: 'Home'),
             const NavigationDestination(
-                icon: Icon(FluentIcons.search_12_regular),
-                selectedIcon: Icon(FluentIcons.search_12_filled),
+                icon: Icon(FluentIcons.search_16_regular),
+                selectedIcon: Icon(FluentIcons.search_16_filled),
                 label: 'Search'),
             const NavigationDestination(
-                icon: Icon(FluentIcons.channel_16_regular),
-                selectedIcon: Icon(FluentIcons.channel_16_filled),
+                icon: Icon(FluentIcons.people_team_16_regular),
+                selectedIcon: Icon(FluentIcons.people_team_16_filled),
                 label: 'Channel'),
             const NavigationDestination(
-                icon: Icon(FluentIcons.chat_multiple_16_regular),
-                selectedIcon: Icon(FluentIcons.chat_multiple_16_filled),
+                icon: Badge(
+                    label: Text('12', style: TextStyle(fontSize: 9)),
+                    child: Icon(FluentIcons.mail_16_regular)),
+                selectedIcon: Badge(
+                    label: Text('12', style: TextStyle(fontSize: 9)),
+                    child: Icon(FluentIcons.mail_16_filled)),
                 label: 'Messages'),
             NavigationDestination(
                 icon: const CircleAvatar(

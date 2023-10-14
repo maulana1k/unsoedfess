@@ -1,8 +1,11 @@
 import 'dart:ui';
 
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:unsoedfess/features/messages/message_page.dart';
 
 class InboxPage extends StatefulWidget {
   const InboxPage({super.key});
@@ -19,14 +22,13 @@ class _InboxPageState extends State<InboxPage> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         scrolledUnderElevation: 0,
-        leading: const Icon(FluentIcons.mail_inbox_all_24_filled, size: 30),
         title: Row(
           children: [
-            Text('Message Inbox',
-                style: GoogleFonts.nunitoSans(fontWeight: FontWeight.w800).copyWith(fontSize: 22)),
+            Text('Messages Inbox',
+                style: GoogleFonts.nunitoSans(fontWeight: FontWeight.w800).copyWith(fontSize: 24)),
             const SizedBox(width: 15),
-            const Text('12',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.blue)),
+            const Text('• 12 unreads',
+                style: TextStyle(fontSize: 14, fontWeight: FontWeight.normal, color: Colors.blue)),
           ],
         ),
         actions: [IconButton(onPressed: () {}, icon: const Icon(FluentIcons.search_16_filled))],
@@ -58,7 +60,9 @@ class NamedChat extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        Navigator.push(context, CupertinoPageRoute(builder: (context) => const MessagePage()));
+      },
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
         child: const Row(
@@ -175,7 +179,11 @@ class AnonymChat extends StatelessWidget {
             CircleAvatar(
               radius: 24,
               backgroundColor: Colors.grey.shade200,
-              child: const Icon(FluentIcons.person_16_regular, size: 24),
+              child: Icon(
+                FluentIcons.person_16_filled,
+                size: 32,
+                color: Colors.grey.shade400,
+              ),
             ),
             const SizedBox(width: 10),
             const Column(

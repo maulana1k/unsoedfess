@@ -1,6 +1,6 @@
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:unsoedfess/components/post_card.dart';
+import 'package:unsoedfess/features/cards/post_card.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
@@ -47,16 +47,16 @@ class _SearchPageState extends State<SearchPage> {
                 const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 16),
                   child: Text(
-                    'Hashtags',
+                    'Popular Tags',
                     style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                   ),
                 ),
                 const SizedBox(height: 10),
                 Column(
                     children: List.generate(3, (index) {
-                  return const HashtagTile(tag: '#SeptemberHitam', count: '2.6k');
+                  return const HashtagTile(tag: 'SeptemberHitam', count: '2.6k');
                 })),
-                const HashtagTile(tag: '#Termobarik', count: '42.1k'),
+                const HashtagTile(tag: 'Termobarik', count: '42.1k'),
                 InkWell(
                   onTap: () {},
                   child: Container(
@@ -106,16 +106,24 @@ class HashtagTile extends StatelessWidget {
     return InkWell(
       onTap: () {},
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
         child: Row(
           children: [
-            // const Icon(FluentIcons.number_symbol_24_filled, size: 18),
-            // const SizedBox(width: 8),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(tag, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                Text('• $count Posts',
+                Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                    decoration: BoxDecoration(
+                        color: Colors.grey.shade100, borderRadius: BorderRadius.circular(30)),
+                    child: Row(
+                      children: [
+                        const Icon(FluentIcons.number_symbol_16_filled, size: 16),
+                        Text(tag,
+                            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                      ],
+                    )),
+                Text('    • $count Posts',
                     style: const TextStyle(fontWeight: FontWeight.normal, color: Colors.blue))
               ],
             ),

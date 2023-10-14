@@ -2,7 +2,7 @@ import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:badges/badges.dart' as badges;
-import 'package:unsoedfess/screens/menfess.dart';
+import 'package:unsoedfess/features/post/menfess.dart';
 
 class MenfessCard extends StatelessWidget {
   const MenfessCard({
@@ -25,9 +25,9 @@ class MenfessCard extends StatelessWidget {
           decoration: BoxDecoration(
               boxShadow: [
                 BoxShadow(
-                  color: Colors.grey.withOpacity(0.2),
+                  color: Colors.grey.withOpacity(0.3),
                   spreadRadius: 0,
-                  blurRadius: 7,
+                  blurRadius: 3,
                   offset: const Offset(0, 2), // changes position of shadow
                 ),
               ],
