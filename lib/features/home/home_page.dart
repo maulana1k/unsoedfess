@@ -14,82 +14,81 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: Colors.white,
-        body: NestedScrollView(
-          floatHeaderSlivers: true,
-          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-            return <Widget>[
-              SliverAppBar(
-                backgroundColor: Colors.white,
-                title: Text('Unsoedfess',
-                    style: GoogleFonts.merriweather(fontWeight: FontWeight.w900)
-                        .copyWith(fontSize: 24)),
-                actions: [
-                  Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 4),
-                      child: IconButton(
-                        onPressed: () {
-                          Navigator.push(context,
-                              CupertinoPageRoute(builder: (context) => const NotificationPage()));
-                        },
-                        icon: const Badge(
-                          backgroundColor: Colors.red,
-                          label: Text('5'),
-                          smallSize: 10,
-                          child: Icon(FluentIcons.alert_16_regular, size: 28),
-                        ),
-                      ))
-                ],
-                // forceElevated: innerBoxIsScrolled,
-              ),
-            ];
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: NestedScrollView(
+        floatHeaderSlivers: true,
+        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+          return <Widget>[
+            SliverAppBar(
+              automaticallyImplyLeading: false,
+              backgroundColor: Colors.white,
+              title: Text('Unsoedfess',
+                  style:
+                      GoogleFonts.merriweather(fontWeight: FontWeight.w900).copyWith(fontSize: 24)),
+              actions: [
+                Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 4),
+                    child: IconButton(
+                      onPressed: () {
+                        Navigator.push(context,
+                            CupertinoPageRoute(builder: (context) => const NotificationPage()));
+                      },
+                      icon: const Badge(
+                        backgroundColor: Colors.red,
+                        label: Text('5'),
+                        smallSize: 10,
+                        child: Icon(FluentIcons.alert_16_regular, size: 28),
+                      ),
+                    ))
+              ],
+              // forceElevated: innerBoxIsScrolled,
+            ),
+          ];
+        },
+        body: RefreshIndicator(
+          color: Colors.black,
+          strokeWidth: 2,
+          // backgroundColor: Colors.black87,
+          onRefresh: () {
+            return Future.delayed(const Duration(seconds: 2));
           },
-          body: RefreshIndicator(
-            color: Colors.black,
-            strokeWidth: 2,
-            // backgroundColor: Colors.black87,
-            onRefresh: () {
-              return Future.delayed(const Duration(seconds: 2));
-            },
-            child: ListView(physics: const BouncingScrollPhysics(), children: const [
-              // LinearProgressIndicator(color: Colors.black, minHeight: 1),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16),
-                child: SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: [
-                        StoryCard(),
-                        SizedBox(width: 14),
-                        StoryCard(),
-                        SizedBox(width: 14),
-                        StoryCard(isOpen: true),
-                        SizedBox(width: 14),
-                        StoryCard(isOpen: true),
-                        SizedBox(width: 14),
-                        StoryCard(isOpen: true),
-                      ],
-                    )),
-              ),
-              Divider(thickness: 0.5),
-              PostCard(),
-              MenfessCard(),
-              PostCard(),
-              PostCard(),
-            ]),
-          ),
+          child: ListView(physics: const BouncingScrollPhysics(), children: const [
+            // LinearProgressIndicator(color: Colors.black, minHeight: 1),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: [
+                      StoryCard(),
+                      SizedBox(width: 14),
+                      StoryCard(),
+                      SizedBox(width: 14),
+                      StoryCard(isOpen: true),
+                      SizedBox(width: 14),
+                      StoryCard(isOpen: true),
+                      SizedBox(width: 14),
+                      StoryCard(isOpen: true),
+                    ],
+                  )),
+            ),
+            Divider(thickness: 0.5),
+            PostCard(),
+            MenfessCard(),
+            PostCard(),
+            PostCard(),
+          ]),
         ),
-        floatingActionButton: FloatingActionButton(
-          shape: const CircleBorder(),
-          backgroundColor: Colors.black,
-          elevation: 16,
-          onPressed: () {
-            Navigator.push(context, SlideUpPageRoute(page: const CreatePost()));
-          },
-          child: const Icon(FluentIcons.add_16_filled, color: Colors.white),
-        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        shape: const CircleBorder(),
+        backgroundColor: Colors.black,
+        elevation: 16,
+        onPressed: () {
+          Navigator.push(context, SlideUpPageRoute(page: const CreatePost()));
+        },
+        child: const Icon(FluentIcons.add_16_filled, color: Colors.white),
       ),
     );
   }

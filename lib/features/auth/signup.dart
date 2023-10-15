@@ -1,17 +1,61 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:unsoedfess/features/auth/signup.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:unsoedfess/features/auth/new_profile.dart';
+import 'package:unsoedfess/features/auth/signin.dart';
 
-class SignIn extends StatefulWidget {
-  const SignIn({super.key});
+class SignUp extends StatefulWidget {
+  const SignUp({super.key});
 
   @override
-  State<SignIn> createState() => _SignInState();
+  State<SignUp> createState() => _SignUpState();
 }
 
-class _SignInState extends State<SignIn> {
+class _SignUpState extends State<SignUp> {
+  final _usernameController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  bool _isLoading = false;
+
+  Future<void> signInWithEmailAndPassword(BuildContext context) async {
+    setState(() {
+      _isLoading = true;
+    });
+    try {
+      // await Future.delayed(const Duration(seconds: 2));
+      // UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+      //   email: _emailController.text,
+      //   password: _passwordController.text,
+      // );
+      // User? user = userCredential.user;
+      final prefs = await SharedPreferences.getInstance();
+      prefs.setString('username', 'sample');
+      prefs.setString('email', 'sample@gmail.com');
+      // print("User signed in: ${user?.uid}");
+      setState(() {
+        _isLoading = false;
+      });
+
+      if (context.mounted) {
+        Navigator.pushReplacement(
+            context, CupertinoPageRoute(builder: (context) => const NewProfile()));
+      }
+    } catch (e) {
+      setState(() {
+        _isLoading = false;
+      });
+      print("Error signing in: $e");
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text("Sign in error"),
+          ),
+        );
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,11 +100,13 @@ class _SignInState extends State<SignIn> {
                       ],
                     ),
                     const SizedBox(height: 10),
-                    Text("Sign In",
+                    Text("Create Account",
                         style: GoogleFonts.nunitoSans(fontWeight: FontWeight.w800)
                             .copyWith(fontSize: 32)),
                     const SizedBox(height: 10),
-                    CustomTextInput(hintText: 'Username or Email', controller: _emailController),
+                    CustomTextInput(hintText: 'Username', controller: _usernameController),
+                    const SizedBox(height: 10),
+                    CustomTextInput(hintText: 'Email', controller: _emailController),
                     const SizedBox(height: 10),
                     CustomTextInput(
                         hintText: 'Password', controller: _passwordController, obscureText: true),
@@ -68,14 +114,27 @@ class _SignInState extends State<SignIn> {
                     SizedBox(
                       width: double.infinity,
                       child: ElevatedButton(
-                        onPressed: () {},
-                        style: const ButtonStyle(
-                            backgroundColor: MaterialStatePropertyAll(Colors.black)),
-                        child: const Text(
-                          "Sign In",
-                          style: TextStyle(
-                              color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
-                          textAlign: TextAlign.center,
+                        onPressed: _isLoading ? null : () => signInWithEmailAndPassword(context),
+                        style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStatePropertyAll(_isLoading ? Colors.grey : Colors.black)),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            if (_isLoading)
+                              const SizedBox(
+                                  height: 15,
+                                  width: 15,
+                                  child: CircularProgressIndicator(
+                                      color: Colors.white, strokeWidth: 2)),
+                            const SizedBox(width: 15),
+                            const Text(
+                              "Continue",
+                              style: TextStyle(
+                                  color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
+                              textAlign: TextAlign.center,
+                            ),
+                          ],
                         ),
                       ),
                     ),
@@ -83,8 +142,8 @@ class _SignInState extends State<SignIn> {
                       width: double.infinity,
                       child: OutlinedButton(
                         style: ButtonStyle(
-                            side: MaterialStateProperty.all(BorderSide(
-                                color: Colors.grey.shade300)), // Change the border color to grey
+                            side:
+                                MaterialStateProperty.all(BorderSide(color: Colors.grey.shade300)),
                             overlayColor: MaterialStateProperty.all(Colors.grey.shade300),
                             backgroundColor: const MaterialStatePropertyAll(Colors.white)),
                         onPressed: () {},
@@ -112,15 +171,15 @@ class _SignInState extends State<SignIn> {
                         child: InkWell(
                             onTap: () {
                               Navigator.push(
-                                  context, MaterialPageRoute(builder: (context) => const SignUp()));
+                                  context, MaterialPageRoute(builder: (context) => const SignIn()));
                             },
                             child: const Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text("Don't have an account? ",
+                                Text("Already have an account? ",
                                     style:
                                         TextStyle(fontWeight: FontWeight.bold, color: Colors.grey)),
-                                Text("Sign Up",
+                                Text("Sign In",
                                     textAlign: TextAlign.center,
                                     style: TextStyle(fontWeight: FontWeight.bold)),
                               ],
@@ -129,6 +188,45 @@ class _SignInState extends State<SignIn> {
                 ),
               ),
             ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class CustomTextInput extends StatelessWidget {
+  final String hintText;
+  final TextEditingController controller;
+  final bool obscureText;
+  final String label;
+  const CustomTextInput({
+    super.key,
+    required this.hintText,
+    required this.controller,
+    this.obscureText = false,
+    this.label = '',
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 40,
+      decoration: BoxDecoration(
+          color: Colors.grey.shade200, borderRadius: const BorderRadius.all(Radius.circular(40))),
+      child: Row(
+        children: [
+          Expanded(
+            child: TextField(
+              obscureText: obscureText,
+              decoration: InputDecoration(
+                  isDense: true,
+                  contentPadding: const EdgeInsets.symmetric(horizontal: 20),
+                  hintStyle: const TextStyle(color: Colors.black54, fontWeight: FontWeight.normal),
+                  hintText: hintText,
+                  border: const OutlineInputBorder(borderSide: BorderSide.none),
+                  enabledBorder: InputBorder.none),
+            ),
           ),
         ],
       ),

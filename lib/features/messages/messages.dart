@@ -3,7 +3,6 @@ import 'dart:ui';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:unsoedfess/features/messages/message_page.dart';
 
@@ -27,8 +26,8 @@ class _InboxPageState extends State<InboxPage> {
             Text('Messages Inbox',
                 style: GoogleFonts.nunitoSans(fontWeight: FontWeight.w800).copyWith(fontSize: 24)),
             const SizedBox(width: 15),
-            const Text('• 12 unreads',
-                style: TextStyle(fontSize: 14, fontWeight: FontWeight.normal, color: Colors.blue)),
+            const Text('• 12',
+                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.blue)),
           ],
         ),
         actions: [IconButton(onPressed: () {}, icon: const Icon(FluentIcons.search_16_filled))],

@@ -26,7 +26,7 @@ class StoryCard extends StatelessWidget {
                 borderRadius: BorderRadius.circular(50)),
             child: GestureDetector(
               onTapUp: (TapUpDetails details) {
-                Navigator.push(context, ScaleUpPageRoute(page: const StoryView()));
+                Navigator.push(context, ScaleUpPageRouteWithFade(page: const StoryView()));
               },
               child: Container(
                 clipBehavior: Clip.hardEdge,
@@ -69,17 +69,17 @@ class SlideDownPageRoute extends PageRouteBuilder {
         );
 }
 
-class ScaleUpPageRoute extends PageRouteBuilder {
+class ScaleUpPageRouteWithFade extends PageRouteBuilder {
   final Widget page;
 
-  ScaleUpPageRoute({required this.page})
+  ScaleUpPageRouteWithFade({required this.page})
       : super(
           transitionDuration: const Duration(milliseconds: 400),
           pageBuilder: (context, animation, secondaryAnimation) => page,
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             const begin = Offset(0, 0);
             const end = Offset.zero;
-            const curve = Curves.fastOutSlowIn;
+            const curve = Curves.easeOutCirc;
             const beginScale = 0.3;
             const endScale = 1.0;
 

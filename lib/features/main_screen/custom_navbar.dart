@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 
-class CustomNavbar extends StatefulWidget {
-  const CustomNavbar({super.key, required this.pageIndex, required this.onChangePage});
+class CustomBottomNavbar extends StatefulWidget {
+  const CustomBottomNavbar({super.key, required this.pageIndex, required this.onChangePage});
   final int pageIndex;
   final Function(int) onChangePage;
   @override
-  State<CustomNavbar> createState() => _CustomNavbarState();
+  State<CustomBottomNavbar> createState() => _CustomBottomNavbarState();
 }
 
-class _CustomNavbarState extends State<CustomNavbar> {
+class _CustomBottomNavbarState extends State<CustomBottomNavbar> {
   @override
   Widget build(BuildContext context) {
     return Container(

@@ -132,7 +132,16 @@ class ProfileInformation extends StatelessWidget {
         const Text('Felicia Angelique',
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
         const SizedBox(height: 5),
-        const Text('very good very well', style: TextStyle(fontSize: 16)),
+        const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 24),
+          child: Text(
+            'very good very well',
+            style: TextStyle(fontSize: 16),
+            textAlign: TextAlign.center,
+            maxLines: 4,
+            overflow: TextOverflow.ellipsis,
+          ),
+        ),
         const SizedBox(height: 5),
         const Text('bit.ly/feliciangel', style: TextStyle(fontSize: 16, color: Colors.blue)),
         const SizedBox(height: 10),
