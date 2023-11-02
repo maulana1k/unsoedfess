@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:unsoedfess/features/main_screen/custom_navbar.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:unsoedfess/features/events/events.dart';
+import 'package:unsoedfess/features/main_screen/components/custom_navbar.dart';
 import 'package:unsoedfess/features/channels/channels.dart';
-import 'package:unsoedfess/features/home/home_page.dart';
+import 'package:unsoedfess/features/home/screens/home_page.dart';
 import 'package:unsoedfess/features/messages/messages.dart';
-import 'package:unsoedfess/features/profile/profile.dart';
+import 'package:unsoedfess/features/profile/my_profile.dart';
 import 'package:unsoedfess/features/explore/explore.dart';
 
-class MainScreen extends StatefulWidget {
+class MainScreen extends ConsumerStatefulWidget {
   const MainScreen({super.key});
 
   @override
-  State<MainScreen> createState() => _MainScreenState();
+  ConsumerState<MainScreen> createState() => _MainScreenState();
 }
 
-class _MainScreenState extends State<MainScreen> {
+class _MainScreenState extends ConsumerState<MainScreen> {
   int pageIndex = 0;
   void changePage(index) {
     setState(() {
@@ -27,9 +29,9 @@ class _MainScreenState extends State<MainScreen> {
       body: [
         const HomePage(),
         const SearchPage(),
-        const ChannelsPage(),
+        const Events(),
         const InboxPage(),
-        const ProfilePage()
+        const MyProfilePage(),
       ][pageIndex],
       bottomNavigationBar: CustomBottomNavbar(pageIndex: pageIndex, onChangePage: changePage),
     );

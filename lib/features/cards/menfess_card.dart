@@ -12,8 +12,9 @@ class MenfessCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(10),
+      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
+          color: Colors.grey.shade100,
           border: Border(bottom: BorderSide(color: Colors.grey.shade300, width: 0.5))),
       child: InkWell(
         onTap: () {
@@ -23,14 +24,6 @@ class MenfessCard extends StatelessWidget {
           clipBehavior: Clip.hardEdge,
           padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.3),
-                  spreadRadius: 0,
-                  blurRadius: 3,
-                  offset: const Offset(0, 2), // changes position of shadow
-                ),
-              ],
               borderRadius: BorderRadius.circular(16),
               color: Colors.white,
               border: Border.all(color: Colors.grey.shade300)),
@@ -63,7 +56,7 @@ class MenfessCard extends StatelessWidget {
                       children: [
                         Text('Teknik Jaya',
                             style: TextStyle(
-                                color: Colors.black, fontWeight: FontWeight.bold, fontSize: 18)),
+                                color: Colors.black, fontWeight: FontWeight.bold, fontSize: 16)),
                         SizedBox(width: 6),
                         badges.Badge(
                           badgeContent:
@@ -83,7 +76,7 @@ class MenfessCard extends StatelessWidget {
             const SizedBox(height: 10),
             const Text(
               'Jends! info parttime dong',
-              style: TextStyle(fontSize: 16),
+              style: TextStyle(fontSize: 15),
             ),
             const SizedBox(height: 10),
             const Text('46 Replies',

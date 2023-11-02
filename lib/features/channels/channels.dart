@@ -29,7 +29,7 @@ class _ChannelsPageState extends State<ChannelsPage> {
                     // leading: const Icon(FluentIcons.channel_48_filled, size: 34),
                     // leading: const Icon(FluentIcons.people_team_32_regular),
                     title: Text('Channels',
-                        style: GoogleFonts.nunitoSans(fontWeight: FontWeight.w800)
+                        style: GoogleFonts.poppins(fontWeight: FontWeight.w700)
                             .copyWith(fontSize: 24)),
                     bottom: const TabBar(
                         labelStyle: TextStyle(fontWeight: FontWeight.bold),

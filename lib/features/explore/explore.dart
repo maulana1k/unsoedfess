@@ -18,22 +18,38 @@ class _SearchPageState extends State<SearchPage> {
         scrolledUnderElevation: 0,
         backgroundColor: Colors.white,
         title: Container(
-          height: 40,
+          // height: 40,
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
           decoration:
-              BoxDecoration(color: Colors.grey.shade200, borderRadius: BorderRadius.circular(20)),
-          child: const TextField(
-            decoration: InputDecoration(
-                prefixIcon: Icon(FluentIcons.search_12_regular, size: 20),
-                contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 20),
-                hintText: "Search",
-                hintStyle: TextStyle(fontSize: 15),
-                border: OutlineInputBorder(borderSide: BorderSide.none)),
+              BoxDecoration(color: Colors.grey.shade200, borderRadius: BorderRadius.circular(40)),
+          child: const Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Icon(
+                FluentIcons.search_12_regular,
+                size: 22,
+                color: Colors.grey,
+              ),
+              SizedBox(width: 10),
+              Text(
+                'Search',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.grey),
+              )
+            ],
           ),
+          // child: const TextField(
+          //   decoration: InputDecoration(
+          //       prefixIcon: Icon(FluentIcons.search_12_regular, size: 20),
+          //       contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 20),
+          //       hintText: "Search",
+          //       hintStyle: TextStyle(fontSize: 15),
+          //       border: OutlineInputBorder(borderSide: BorderSide.none)
+          //       ),
+          // ),
         ),
       ),
       body: RefreshIndicator(
         color: Colors.black,
-        strokeWidth: 2,
         onRefresh: () {
           return Future.delayed(const Duration(seconds: 2));
         },
@@ -44,18 +60,9 @@ class _SearchPageState extends State<SearchPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16),
-                  child: Text(
-                    'Popular Tags',
-                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-                  ),
-                ),
-                const SizedBox(height: 10),
-                Column(
-                    children: List.generate(3, (index) {
-                  return const HashtagTile(tag: 'SeptemberHitam', count: '2.6k');
-                })),
+                const HashtagTile(tag: 'StandWithPalestine', count: '42.1k'),
+                const HashtagTile(tag: 'Gibran', count: '42.1k'),
+                const HashtagTile(tag: 'Korut', count: '42.1k'),
                 const HashtagTile(tag: 'Termobarik', count: '42.1k'),
                 InkWell(
                   onTap: () {},
@@ -72,7 +79,7 @@ class _SearchPageState extends State<SearchPage> {
                   padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   child: Text(
                     'For You',
-                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                 ),
                 const Column(
@@ -106,24 +113,19 @@ class HashtagTile extends StatelessWidget {
     return InkWell(
       onTap: () {},
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
         child: Row(
           children: [
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-                    decoration: BoxDecoration(
-                        color: Colors.grey.shade100, borderRadius: BorderRadius.circular(30)),
-                    child: Row(
-                      children: [
-                        const Icon(FluentIcons.number_symbol_16_filled, size: 16),
-                        Text(tag,
-                            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                      ],
-                    )),
-                Text('    • $count Posts',
+                Row(
+                  children: [
+                    const Icon(FluentIcons.number_symbol_16_filled, size: 16),
+                    Text(tag, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                  ],
+                ),
+                Text('$count Posts',
                     style: const TextStyle(fontWeight: FontWeight.normal, color: Colors.blue))
               ],
             ),

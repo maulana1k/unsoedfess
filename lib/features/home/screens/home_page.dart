@@ -1,31 +1,38 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:unsoedfess/features/create_post/create_post.dart';
-import 'package:unsoedfess/features/home/notification.dart';
+import 'package:unsoedfess/features/home/screens/notification.dart';
 
-import 'package:unsoedfess/features/cards/menfess_card.dart';
 import 'package:unsoedfess/features/cards/post_card.dart';
 import 'package:unsoedfess/features/cards/story_card.dart';
+import 'package:unsoedfess/provider/user_provider.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
 
+  @override
+  ConsumerState<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends ConsumerState<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       body: NestedScrollView(
-        floatHeaderSlivers: true,
+        // floatHeaderSlivers: true,
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return <Widget>[
             SliverAppBar(
               automaticallyImplyLeading: false,
               backgroundColor: Colors.white,
-              title: Text('Unsoedfess',
-                  style:
-                      GoogleFonts.merriweather(fontWeight: FontWeight.w900).copyWith(fontSize: 24)),
+              centerTitle: true,
+              leading: const Icon(FluentIcons.list_16_filled),
+              title: Text(ref.read(titleProvider),
+                  style: GoogleFonts.poppins(fontWeight: FontWeight.w700).copyWith(fontSize: 22)),
               actions: [
                 Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 4),
@@ -35,10 +42,9 @@ class HomePage extends StatelessWidget {
                             CupertinoPageRoute(builder: (context) => const NotificationPage()));
                       },
                       icon: const Badge(
-                        backgroundColor: Colors.red,
-                        label: Text('5'),
+                        // label: Text('5'),
                         smallSize: 10,
-                        child: Icon(FluentIcons.alert_16_regular, size: 28),
+                        child: Icon(FluentIcons.alert_12_regular, size: 28),
                       ),
                     ))
               ],
@@ -48,49 +54,59 @@ class HomePage extends StatelessWidget {
         },
         body: RefreshIndicator(
           color: Colors.black,
-          strokeWidth: 2,
-          // backgroundColor: Colors.black87,
           onRefresh: () {
             return Future.delayed(const Duration(seconds: 2));
           },
-          child: ListView(physics: const BouncingScrollPhysics(), children: const [
-            // LinearProgressIndicator(color: Colors.black, minHeight: 1),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16),
-              child: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    children: [
-                      StoryCard(),
-                      SizedBox(width: 14),
-                      StoryCard(),
-                      SizedBox(width: 14),
-                      StoryCard(isOpen: true),
-                      SizedBox(width: 14),
-                      StoryCard(isOpen: true),
-                      SizedBox(width: 14),
-                      StoryCard(isOpen: true),
-                    ],
-                  )),
-            ),
-            Divider(thickness: 0.5),
-            PostCard(),
-            MenfessCard(),
-            PostCard(),
-            PostCard(),
-          ]),
+          child: ListView(
+              physics: const BouncingScrollPhysics(),
+              padding: const EdgeInsets.all(0),
+              children: const [
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16),
+                  child: StoryList(),
+                ),
+                Divider(thickness: 0.5),
+                PostCard(),
+                // MenfessCard(),
+                // PostCard(),
+                // PostCard(),
+              ]),
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        shape: const CircleBorder(),
         backgroundColor: Colors.black,
-        elevation: 16,
+        elevation: 12,
         onPressed: () {
           Navigator.push(context, SlideUpPageRoute(page: const CreatePost()));
         },
         child: const Icon(FluentIcons.add_16_filled, color: Colors.white),
       ),
     );
+  }
+}
+
+class StoryList extends StatelessWidget {
+  const StoryList({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return const SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Row(
+          children: [
+            StoryCard(),
+            SizedBox(width: 14),
+            StoryCard(),
+            SizedBox(width: 14),
+            StoryCard(isOpen: true),
+            SizedBox(width: 14),
+            StoryCard(isOpen: true),
+            SizedBox(width: 14),
+            StoryCard(isOpen: true),
+          ],
+        ));
   }
 }
 

@@ -7,7 +7,6 @@ class Post {
   final int likes;
   final int replies;
   final int reposts;
-  final int saves;
 
   Post({
     required this.userID,
@@ -18,7 +17,6 @@ class Post {
     this.likes = 0,
     this.replies = 0,
     this.reposts = 0,
-    this.saves = 0,
   });
   Map<String, dynamic> toJson() {
     return {
@@ -30,7 +28,6 @@ class Post {
       'likes': likes,
       'replies': replies,
       'reposts': reposts,
-      'saves': saves,
     };
   }
 
@@ -45,7 +42,6 @@ class Post {
       likes: json['likes'],
       replies: json['replies'],
       reposts: json['reposts'],
-      saves: json['saves'],
     );
   }
 }

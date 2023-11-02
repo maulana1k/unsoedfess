@@ -24,10 +24,15 @@ class _InboxPageState extends State<InboxPage> {
         title: Row(
           children: [
             Text('Messages Inbox',
-                style: GoogleFonts.nunitoSans(fontWeight: FontWeight.w800).copyWith(fontSize: 24)),
+                style: GoogleFonts.poppins(fontWeight: FontWeight.w700).copyWith(fontSize: 24)),
             const SizedBox(width: 15),
-            const Text('• 12',
-                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.blue)),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
+              decoration:
+                  BoxDecoration(color: Colors.blue, borderRadius: BorderRadius.circular(20)),
+              child: const Text('12',
+                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.white)),
+            ),
           ],
         ),
         actions: [IconButton(onPressed: () {}, icon: const Icon(FluentIcons.search_16_filled))],
@@ -37,12 +42,6 @@ class _InboxPageState extends State<InboxPage> {
         child: Column(
           children: [
             NamedChat(),
-            AnonymChat(),
-            NamedChat(),
-            AnonymChat(),
-            AnonymChat(),
-            AnonymChat(),
-            AnonymChat(),
             AnonymChat(),
           ],
         ),

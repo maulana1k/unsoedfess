@@ -1,4 +1,5 @@
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class MessageButton extends StatefulWidget {
@@ -71,17 +72,12 @@ class _MessageButtonState extends State<MessageButton> {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: _openMessageMenu,
-      customBorder: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-      child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 6),
-        decoration:
-            BoxDecoration(color: Colors.grey.shade200, borderRadius: BorderRadius.circular(20)),
-        child: const Icon(FluentIcons.mail_16_regular),
-        // child: const Text('Message',
-        //     style: TextStyle(fontWeight: FontWeight.bold), textAlign: TextAlign.center),
-      ),
-    );
+    return OutlinedButton(
+        onPressed: _openMessageMenu,
+        style: ButtonStyle(
+            side: MaterialStateProperty.all(const BorderSide(color: Colors.transparent)),
+            overlayColor: MaterialStateProperty.all(Colors.grey.shade400),
+            backgroundColor: MaterialStatePropertyAll(Colors.grey.shade200)),
+        child: const Icon(FluentIcons.mail_16_regular, color: Colors.black));
   }
 }

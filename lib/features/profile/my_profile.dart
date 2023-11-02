@@ -1,27 +1,29 @@
 import 'dart:ui';
 
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:unsoedfess/features/cards/menfess_card.dart';
-import 'package:unsoedfess/features/cards/post_card.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:unsoedfess/features/auth/models/user_model.dart';
+import 'package:unsoedfess/features/profile/avatar_profile.dart';
+import 'package:unsoedfess/features/profile/edit_profile.dart';
+import 'package:unsoedfess/provider/user_provider.dart';
 
-import 'follow_button.dart';
-import 'message_button.dart';
-import 'more_button.dart';
-
-class ProfilePage extends StatefulWidget {
-  const ProfilePage({super.key});
+class MyProfilePage extends ConsumerStatefulWidget {
+  const MyProfilePage({super.key});
 
   @override
-  State<ProfilePage> createState() => _ProfilePageState();
+  ConsumerState<MyProfilePage> createState() => _MyProfilePageState();
 }
 
-class _ProfilePageState extends State<ProfilePage> with TickerProviderStateMixin {
+class _MyProfilePageState extends ConsumerState<MyProfilePage> with TickerProviderStateMixin {
   late final TabController _tabController;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
+    ref.read(userProvider);
     _tabController = TabController(length: 3, vsync: this);
   }
 
@@ -33,21 +35,34 @@ class _ProfilePageState extends State<ProfilePage> with TickerProviderStateMixin
 
   @override
   Widget build(BuildContext context) {
+    final profile = ref.watch(userProvider).profile;
+    if (profile == null) {
+      return const Center(
+        child: SizedBox(
+          height: 50,
+          width: 50,
+          child: CircularProgressIndicator(),
+        ),
+      );
+    }
     return Scaffold(
         key: _scaffoldKey,
         backgroundColor: Colors.white,
         appBar: AppBar(
           scrolledUnderElevation: 0,
           backgroundColor: Colors.white,
-          title: const Text('felica.angel_',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
-          actions: const [MoreButton()],
+          title: Text(profile.username,
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+          actions: [
+            IconButton(
+                onPressed: () {}, icon: const Icon(FluentIcons.settings_16_regular, size: 28))
+          ],
         ),
         body: NestedScrollView(
           headerSliverBuilder: (context, innerBoxIsScrolled) {
             return [
-              const SliverToBoxAdapter(
-                child: ProfileInformation(),
+              SliverToBoxAdapter(
+                child: buildProfileInformation(profile),
               ),
               SliverToBoxAdapter(
                 child: TabBar.secondary(
@@ -69,30 +84,14 @@ class _ProfilePageState extends State<ProfilePage> with TickerProviderStateMixin
               physics: const NeverScrollableScrollPhysics(),
               controller: _tabController,
               children: <Widget>[
-                ListView(
-                  physics: const NeverScrollableScrollPhysics(),
-                  children: const [
-                    PostCard(),
-                    PostCard(),
-                  ],
-                ),
-                const Column(children: [MenfessCard()]),
-                const Column(children: [MenfessCard()])
+                ListView(physics: const NeverScrollableScrollPhysics(), children: const []),
+                ListView(physics: const NeverScrollableScrollPhysics(), children: const []),
+                ListView(physics: const NeverScrollableScrollPhysics(), children: const []),
               ]),
-        )
-
-        // ProfileInformation(),
-        );
+        ));
   }
-}
 
-class ProfileInformation extends StatelessWidget {
-  const ProfileInformation({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
+  Widget buildProfileInformation(UserProfile profile) {
     return Column(
       children: [
         Container(
@@ -110,65 +109,58 @@ class ProfileInformation extends StatelessWidget {
                     return BackdropFilter(
                       filter: ImageFilter.blur(sigmaX: 8, sigmaY: 8, tileMode: TileMode.mirror),
                       child: const Center(
-                        child: CircleAvatar(
-                          radius: 150,
-                          backgroundImage: NetworkImage(
-                              'https://berita.yodu.id/wp-content/uploads/2023/02/profil-onic-kayes.jpg'),
-                        ),
+                        child: AvatarProfile(radius: 150),
                       ),
                     );
                   });
             },
-            child: const CircleAvatar(
-              radius: 50,
-              backgroundImage: NetworkImage(
-                  'https://berita.yodu.id/wp-content/uploads/2023/02/profil-onic-kayes.jpg'),
-            ),
+            child: const AvatarProfile(),
           ),
         ),
         const SizedBox(height: 10),
-        const Text('Felicia Angelique',
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+        Text(profile.displayName,
+            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
         const SizedBox(height: 5),
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 24),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24),
           child: Text(
-            'very good very well',
-            style: TextStyle(fontSize: 16),
+            profile.bio,
+            style: const TextStyle(fontSize: 16),
             textAlign: TextAlign.center,
             maxLines: 4,
             overflow: TextOverflow.ellipsis,
           ),
         ),
-        const SizedBox(height: 5),
-        const Text('bit.ly/feliciangel', style: TextStyle(fontSize: 16, color: Colors.blue)),
         const SizedBox(height: 10),
-        const IntrinsicHeight(
+        IntrinsicHeight(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Column(
                 children: [
-                  Text('64', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
-                  Text('Posts',
+                  Text('${profile.posts}',
+                      style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+                  const Text('Posts',
                       style:
                           TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.grey)),
                 ],
               ),
-              VerticalDivider(thickness: 1, width: 50, indent: 12, endIndent: 12),
+              const VerticalDivider(thickness: 1, width: 50, indent: 12, endIndent: 12),
               Column(
                 children: [
-                  Text('1.389', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
-                  Text('Follower',
+                  Text('${profile.followers}',
+                      style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+                  const Text('Follower',
                       style:
                           TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.grey)),
                 ],
               ),
-              VerticalDivider(thickness: 1, width: 50, indent: 12, endIndent: 12),
+              const VerticalDivider(thickness: 1, width: 50, indent: 12, endIndent: 12),
               Column(
                 children: [
-                  Text('903', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
-                  Text('Following',
+                  Text('${profile.followings}',
+                      style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+                  const Text('Following',
                       style:
                           TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.grey)),
                 ],
@@ -177,17 +169,21 @@ class ProfileInformation extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 16),
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16),
-          child: Row(
-            children: [
-              FollowButton(),
-              SizedBox(width: 6),
-              MessageButton(),
-              // SizedBox(width: 6),
-              // MoreButton(),
-            ],
-          ),
+        Container(
+          width: double.infinity,
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: OutlinedButton(
+              onPressed: () {
+                Navigator.push(
+                    context, CupertinoPageRoute(builder: (context) => const EditProfile()));
+              },
+              style: ButtonStyle(
+                  side: MaterialStateProperty.all(BorderSide.none),
+                  overlayColor: MaterialStateProperty.all(Colors.grey.shade400),
+                  backgroundColor: MaterialStatePropertyAll(Colors.grey.shade200)),
+              child: const Text('Edit Profile',
+                  style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
+                  textAlign: TextAlign.center)),
         ),
         const SizedBox(height: 16),
       ],

@@ -49,32 +49,12 @@ class StoryCard extends StatelessWidget {
   }
 }
 
-class SlideDownPageRoute extends PageRouteBuilder {
-  final Widget page;
-
-  SlideDownPageRoute({required this.page})
-      : super(
-          transitionDuration: const Duration(milliseconds: 600),
-          pageBuilder: (context, animation, secondaryAnimation) => page,
-          transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            const begin = Offset(0, -1); // Slide down from the top
-            const end = Offset.zero;
-            const curve = Curves.fastOutSlowIn;
-
-            var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-            var offsetAnimation = animation.drive(tween);
-
-            return SlideTransition(position: offsetAnimation, child: child);
-          },
-        );
-}
-
 class ScaleUpPageRouteWithFade extends PageRouteBuilder {
   final Widget page;
 
   ScaleUpPageRouteWithFade({required this.page})
       : super(
-          transitionDuration: const Duration(milliseconds: 400),
+          transitionDuration: const Duration(milliseconds: 300),
           pageBuilder: (context, animation, secondaryAnimation) => page,
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             const begin = Offset(0, 0);

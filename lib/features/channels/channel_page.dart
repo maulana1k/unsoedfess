@@ -19,15 +19,25 @@ class _ChannelPageState extends State<ChannelPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              width: double.infinity,
-              height: 200,
-              decoration: BoxDecoration(
-                  border: Border(bottom: BorderSide(color: Colors.grey.shade300)),
-                  image: const DecorationImage(
-                      image: NetworkImage(
-                          'https://akcdn.detik.net.id/community/media/visual/2021/03/13/kampus-universitas-indonesia-dok-istimewa.jpeg?w=700&q=90'),
-                      fit: BoxFit.cover)),
+            Stack(
+              children: [
+                Container(
+                  width: double.infinity,
+                  height: 200,
+                  decoration: BoxDecoration(
+                      border: Border(bottom: BorderSide(color: Colors.grey.shade300)),
+                      image: const DecorationImage(
+                          image: NetworkImage(
+                              'https://akcdn.detik.net.id/community/media/visual/2021/03/13/kampus-universitas-indonesia-dok-istimewa.jpeg?w=700&q=90'),
+                          fit: BoxFit.cover)),
+                ),
+                Positioned(
+                    left: 10,
+                    top: 20,
+                    child: IconButton(
+                        onPressed: () => Navigator.pop(context),
+                        icon: const Icon(FluentIcons.arrow_left_20_filled))),
+              ],
             ),
             Container(
               decoration: const BoxDecoration(color: Colors.white),

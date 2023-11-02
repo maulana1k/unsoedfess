@@ -50,20 +50,19 @@ class _PostCardState extends State<PostCard> {
                           backgroundImage: NetworkImage(
                               'https://berita.yodu.id/wp-content/uploads/2023/02/profil-onic-kayes.jpg')),
                     ),
-                    const SizedBox(width: 8),
+                    const SizedBox(width: 12),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Row(
                             children: [
-                              const Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                              const Row(
                                 children: [
                                   Text('felicia.angel__',
                                       style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                                  Text('28 minutes',
-                                      style: TextStyle(fontSize: 12, color: Colors.grey)),
+                                  Text('  ∙ 18m',
+                                      style: TextStyle(fontSize: 14, color: Colors.grey)),
                                 ],
                               ),
                               const Spacer(),
@@ -76,12 +75,12 @@ class _PostCardState extends State<PostCard> {
                               )
                             ],
                           ),
-                          // const SizedBox(height: 10),
                           const Text(
                             'Baru selesai nonton ice cold, makin besar kemungkinan bukan Jesicca yang membunuh Mirna. Sepertinya \n "Ada sutradara dibalik kasus ini"',
                             style: TextStyle(fontSize: 15),
                           ),
                           const SizedBox(height: 4),
+
                           // const ImageCarousel(),
                           const SizedBox(height: 4),
                           Row(

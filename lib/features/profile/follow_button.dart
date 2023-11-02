@@ -78,21 +78,20 @@ class _FollowButtonState extends State<FollowButton> {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: InkWell(
-        onTap: _followAction,
-        customBorder: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 8),
-          decoration: BoxDecoration(
-              color: _isFollow ? Colors.grey.shade200 : Colors.black,
-              borderRadius: BorderRadius.circular(20)),
-          child: Text(_isFollow ? 'Following' : 'Follow',
-              style: TextStyle(
-                color: _isFollow ? null : Colors.white,
-                fontWeight: FontWeight.bold,
-              ),
-              textAlign: TextAlign.center),
-        ),
+      child: OutlinedButton(
+        onPressed: _followAction,
+        style: ButtonStyle(
+            side: MaterialStateProperty.all(
+                const BorderSide(color: Colors.transparent)), // Change the border color to grey
+            // overlayColor: MaterialStateProperty.all(Colors.grey.shade400),
+            backgroundColor:
+                MaterialStatePropertyAll(_isFollow ? Colors.grey.shade200 : Colors.black)),
+        child: Text(_isFollow ? 'Following' : 'Follow',
+            style: TextStyle(
+              color: _isFollow ? Colors.black : Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
+            textAlign: TextAlign.center),
       ),
     );
   }
