@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:unsoedfess/features/events/events.dart';
 import 'package:unsoedfess/features/main_screen/components/custom_navbar.dart';
-import 'package:unsoedfess/features/channels/channels.dart';
 import 'package:unsoedfess/features/home/screens/home_page.dart';
 import 'package:unsoedfess/features/messages/messages.dart';
 import 'package:unsoedfess/features/profile/my_profile.dart';
@@ -16,7 +15,17 @@ class MainScreen extends ConsumerStatefulWidget {
 }
 
 class _MainScreenState extends ConsumerState<MainScreen> {
+  final ScrollController _controller = ScrollController();
+  final double _bottomNavBarHeight = 50;
+  late final ScrollListener _model;
   int pageIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _model = ScrollListener.initialise(_controller, _bottomNavBarHeight);
+  }
+
   void changePage(index) {
     setState(() {
       pageIndex = index;
@@ -28,13 +37,29 @@ class _MainScreenState extends ConsumerState<MainScreen> {
     return Scaffold(
       body: [
         const HomePage(),
-        const SearchPage(),
+        const Explore(),
         const Events(),
         const InboxPage(),
         const MyProfilePage(),
       ][pageIndex],
       bottomNavigationBar: CustomBottomNavbar(pageIndex: pageIndex, onChangePage: changePage),
     );
+  }
+}
+
+class ScrollListener extends ChangeNotifier {
+  double bottom = 10;
+  double _last = 0;
+
+  ScrollListener.initialise(ScrollController controller, [double height = 56]) {
+    controller.addListener(() {
+      final current = controller.offset;
+      bottom += _last - current;
+      if (bottom <= -height) bottom = -height;
+      if (bottom >= 0) bottom = 0;
+      _last = current;
+      if (bottom <= 0 && bottom >= -height) notifyListeners();
+    });
   }
 }
 

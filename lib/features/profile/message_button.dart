@@ -1,5 +1,4 @@
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class MessageButton extends StatefulWidget {
@@ -75,6 +74,7 @@ class _MessageButtonState extends State<MessageButton> {
     return OutlinedButton(
         onPressed: _openMessageMenu,
         style: ButtonStyle(
+            visualDensity: VisualDensity.comfortable,
             side: MaterialStateProperty.all(const BorderSide(color: Colors.transparent)),
             overlayColor: MaterialStateProperty.all(Colors.grey.shade400),
             backgroundColor: MaterialStatePropertyAll(Colors.grey.shade200)),

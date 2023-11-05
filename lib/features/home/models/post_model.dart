@@ -1,4 +1,4 @@
-class Post {
+class PostModel {
   final String userID;
   final Author author;
   final String content;
@@ -8,7 +8,7 @@ class Post {
   final int replies;
   final int reposts;
 
-  Post({
+  PostModel({
     required this.userID,
     required this.author,
     required this.content,
@@ -32,8 +32,8 @@ class Post {
   }
 
   // Create a Post instance from a MongoDB document
-  factory Post.fromJson(Map<String, dynamic> json) {
-    return Post(
+  factory PostModel.fromJson(Map<String, dynamic> json) {
+    return PostModel(
       userID: json['userID'],
       author: Author.fromJson(json['author']),
       content: json['content'],
@@ -49,11 +49,13 @@ class Post {
 class Author {
   final String username;
   final String avatarUrl;
-  Author({required this.username, required this.avatarUrl});
+  final String displayName;
+  Author({required this.username, required this.avatarUrl, required this.displayName});
   Map<String, dynamic> toJson() {
     return {
       'username': username,
       'avatarUrl': avatarUrl,
+      'displayName': displayName,
     };
   }
 
@@ -61,6 +63,7 @@ class Author {
     return Author(
       username: json['username'],
       avatarUrl: json['avatarUrl'],
+      displayName: json['displayName'],
     );
   }
 }
@@ -71,7 +74,7 @@ class MediaType {
 }
 
 class Media {
-  final MediaType type;
+  final String type;
   final String fileUrl;
 
   Media({required this.type, required this.fileUrl});

@@ -2,7 +2,6 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:unsoedfess/features/cards/menfess_card.dart';
-import 'package:unsoedfess/features/cards/post_card.dart';
 
 import 'follow_button.dart';
 import 'message_button.dart';
@@ -71,10 +70,7 @@ class _ProfilePageState extends State<ProfilePage> with TickerProviderStateMixin
               children: <Widget>[
                 ListView(
                   physics: const NeverScrollableScrollPhysics(),
-                  children: const [
-                    PostCard(),
-                    PostCard(),
-                  ],
+                  children: const [],
                 ),
                 const Column(children: [MenfessCard()]),
                 const Column(children: [MenfessCard()])
@@ -111,7 +107,7 @@ class ProfileInformation extends StatelessWidget {
                       filter: ImageFilter.blur(sigmaX: 8, sigmaY: 8, tileMode: TileMode.mirror),
                       child: const Center(
                         child: CircleAvatar(
-                          radius: 150,
+                          radius: 160,
                           backgroundImage: NetworkImage(
                               'https://berita.yodu.id/wp-content/uploads/2023/02/profil-onic-kayes.jpg'),
                         ),
@@ -128,8 +124,7 @@ class ProfileInformation extends StatelessWidget {
         ),
         const SizedBox(height: 10),
         const Text('Felicia Angelique',
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-        const SizedBox(height: 5),
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
         const Padding(
           padding: EdgeInsets.symmetric(horizontal: 24),
           child: Text(
@@ -140,34 +135,33 @@ class ProfileInformation extends StatelessWidget {
             overflow: TextOverflow.ellipsis,
           ),
         ),
-        const SizedBox(height: 5),
         const Text('bit.ly/feliciangel', style: TextStyle(fontSize: 16, color: Colors.blue)),
-        const SizedBox(height: 10),
+        const SizedBox(height: 12),
         const IntrinsicHeight(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Column(
                 children: [
-                  Text('64', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+                  Text('64', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
                   Text('Posts',
                       style:
                           TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.grey)),
                 ],
               ),
-              VerticalDivider(thickness: 1, width: 50, indent: 12, endIndent: 12),
+              SizedBox(width: 30),
               Column(
                 children: [
-                  Text('1.389', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
-                  Text('Follower',
+                  Text('1.389', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                  Text('Followers',
                       style:
                           TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.grey)),
                 ],
               ),
-              VerticalDivider(thickness: 1, width: 50, indent: 12, endIndent: 12),
+              SizedBox(width: 30),
               Column(
                 children: [
-                  Text('903', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+                  Text('903', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
                   Text('Following',
                       style:
                           TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.grey)),
@@ -176,9 +170,9 @@ class ProfileInformation extends StatelessWidget {
             ],
           ),
         ),
-        const SizedBox(height: 16),
+        const SizedBox(height: 12),
         const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16),
+          padding: EdgeInsets.symmetric(horizontal: 28),
           child: Row(
             children: [
               FollowButton(),

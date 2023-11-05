@@ -1,6 +1,7 @@
-import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:iconify_flutter/iconify_flutter.dart';
+import 'package:iconify_flutter/icons/bx.dart';
 import 'package:unsoedfess/provider/user_provider.dart';
 
 class AvatarProfile extends ConsumerWidget {
@@ -11,12 +12,25 @@ class AvatarProfile extends ConsumerWidget {
   Widget build(BuildContext context, ref) {
     final avatarUrl = ref.read(userProvider).profile?.avatar;
     return avatarUrl!.isEmpty
-        ? CircleAvatar(
-            radius: radius,
-            backgroundColor: Colors.grey.shade200,
-            child:
-                Icon(FluentIcons.person_12_filled, size: radius + 10, color: Colors.grey.shade400),
-          )
+        ? AvatarPlaceholder(radius: radius)
         : CircleAvatar(radius: radius, backgroundImage: NetworkImage(avatarUrl));
+  }
+}
+
+class AvatarPlaceholder extends StatelessWidget {
+  const AvatarPlaceholder({
+    super.key,
+    required this.radius,
+  });
+
+  final double radius;
+
+  @override
+  Widget build(BuildContext context) {
+    return CircleAvatar(
+      radius: radius,
+      backgroundColor: Colors.grey.shade200,
+      child: Iconify(Bx.user, size: radius + 5, color: Colors.grey.shade400),
+    );
   }
 }

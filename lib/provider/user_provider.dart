@@ -5,7 +5,8 @@ import 'package:unsoedfess/features/auth/models/user_model.dart';
 class UserData extends ChangeNotifier {
   UserProfile? _profile = UserProfile(
       email: '',
-      avatar: '',
+      avatar:
+          'https://image.popbela.com/content-images/post/20220506/2-7-2ddb8ff7827782237c7e276320be3b08.jpg?width=750&format=webp&w=750',
       username: 'steph.str',
       displayName: 'Stephen Strange',
       bio: 'Whooz',

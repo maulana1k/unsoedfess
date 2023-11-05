@@ -1,10 +1,16 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:unsoedfess/features/home/models/post_model.dart';
+import 'package:unsoedfess/features/profile/avatar_profile.dart';
+import 'package:unsoedfess/features/profile/profile.dart';
 
 import '../cards/image_carousel.dart';
 
 class PostPage extends StatefulWidget {
-  const PostPage({super.key});
+  final PostModel postData;
+  const PostPage({super.key, required this.postData});
 
   @override
   State<PostPage> createState() => _PostPageState();
@@ -20,72 +26,111 @@ class _PostPageState extends State<PostPage> {
 
   @override
   Widget build(BuildContext context) {
+    final data = widget.postData;
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
         scrolledUnderElevation: 0,
-        title: const Text('Post', style: TextStyle(fontWeight: FontWeight.bold)),
+        title: Text('Post',
+            style: GoogleFonts.poppins(fontWeight: FontWeight.w700).copyWith(fontSize: 20)),
         backgroundColor: Colors.white,
       ),
       body: Column(
         children: [
           Expanded(
             child: SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.all(14),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: Row(
                       children: [
-                        const CircleAvatar(
-                          radius: 24,
-                          backgroundImage: NetworkImage(
-                              'https://berita.yodu.id/wp-content/uploads/2023/02/profil-onic-kayes.jpg'),
-                        ),
-                        const SizedBox(width: 10),
                         Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                          child: Row(
                             children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  const Text(
-                                    'felicia.angel__',
-                                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                                  ),
-                                  InkWell(
-                                    onTap: () {},
-                                    child: const Icon(
-                                      FluentIcons.more_horizontal_32_filled,
-                                      size: 22,
-                                    ),
-                                  )
-                                ],
+                              InkWell(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      CupertinoPageRoute(
+                                          builder: (context) => const ProfilePage()));
+                                },
+                                child: data.author.avatarUrl.isNotEmpty
+                                    ? CircleAvatar(
+                                        radius: 24,
+                                        backgroundImage: NetworkImage(data.author.avatarUrl))
+                                    : const AvatarPlaceholder(radius: 20),
                               ),
-                              const SizedBox(height: 2),
+                              const SizedBox(width: 16),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    RichText(
+                                      overflow: TextOverflow.ellipsis,
+                                      text: TextSpan(
+                                        text: data.author.displayName,
+                                        style: const TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                    const SizedBox(height: 4),
+                                    RichText(
+                                      overflow: TextOverflow.ellipsis,
+                                      text: TextSpan(
+                                        children: [
+                                          TextSpan(
+                                            text: data.author.username,
+                                            style:
+                                                const TextStyle(color: Colors.grey, fontSize: 14),
+                                          ),
+                                          TextSpan(
+                                              text: ' ‧ ${data.timestamp}',
+                                              style: const TextStyle(
+                                                  fontSize: 14, color: Colors.grey)),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              )
                             ],
                           ),
-                        )
+                        ),
+                        IconButton(
+                          style: const ButtonStyle(visualDensity: VisualDensity.compact),
+                          onPressed: () {},
+                          icon: const Icon(FluentIcons.more_horizontal_16_filled, size: 20),
+                        ),
                       ],
                     ),
-                    const SizedBox(height: 12),
-                    const Text(
-                      'Baru selesai nonton ice cold, makin besar kemungkinan bukan Jesicca yang membunuh Mirna. Sepertinya \n "Ada sutradara dibalik kasus ini"',
-                      style: TextStyle(fontSize: 18),
+                  ),
+                  const SizedBox(height: 12),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: Text(
+                      data.content,
+                      style: const TextStyle(fontSize: 16),
                     ),
-                    const SizedBox(height: 12),
-                    const ImageCarousel(),
-                    const SizedBox(height: 12),
-                    const Text('12 Oct 2023 ꞏ 10.46',
+                  ),
+                  const SizedBox(height: 12),
+                  if (data.media.isNotEmpty) ImageCarousel(media: data.media),
+                  const SizedBox(height: 12),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16),
+                    child: Text('12 Oct 2023 ꞏ 10.46',
                         style: TextStyle(
                           fontSize: 12,
                         )),
-                    const SizedBox(height: 12),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  ),
+                  const SizedBox(height: 12),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         InkWell(
                             onTap: _like,
@@ -99,23 +144,26 @@ class _PostPageState extends State<PostPage> {
                                         FluentIcons.heart_16_regular,
                                         size: 24,
                                       ),
-                                const Text('239')
+                                Text(data.likes.toString())
                               ],
                             )),
                         // const SizedBox(width: 24),
-                        const InkWell(
+                        InkWell(
                             child: Row(
                           crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [Icon(FluentIcons.chat_16_regular, size: 24), Text('12')],
+                          children: [
+                            const Icon(FluentIcons.chat_16_regular, size: 24),
+                            Text(data.replies.toString())
+                          ],
                         )),
                         // const SizedBox(width: 24),
                         const Icon(FluentIcons.arrow_repeat_all_16_regular, size: 24),
                         const Icon(FluentIcons.bookmark_16_regular, size: 24),
                       ],
                     ),
-                    const Divider(thickness: 0.3),
-                  ],
-                ),
+                  ),
+                  const Divider(thickness: 0.3),
+                ],
               ),
             ),
           ),
@@ -123,11 +171,14 @@ class _PostPageState extends State<PostPage> {
             padding: const EdgeInsets.symmetric(horizontal: 12),
             decoration: BoxDecoration(border: Border(top: BorderSide(color: Colors.grey.shade200))),
             child: Row(
-              // crossAxisAlignment: CrossAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                const CircleAvatar(
-                    radius: 14, backgroundImage: NetworkImage('https://bit.ly/dan-abramov')),
-                const SizedBox(width: 4),
+                const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 10),
+                  child: CircleAvatar(
+                      radius: 18, backgroundImage: NetworkImage('https://bit.ly/dan-abramov')),
+                ),
+                // const SizedBox(width: 4),
                 const Expanded(
                   child: TextField(
                     keyboardType: TextInputType.multiline,
@@ -138,12 +189,15 @@ class _PostPageState extends State<PostPage> {
                         border: OutlineInputBorder(borderSide: BorderSide.none)),
                   ),
                 ),
-                TextButton(
-                    onPressed: () {},
-                    child: const Text(
-                      'Send',
-                      style: TextStyle(fontWeight: FontWeight.bold, color: Colors.blue),
-                    ))
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 4),
+                  child: TextButton(
+                      onPressed: () {},
+                      child: const Text(
+                        'Send',
+                        style: TextStyle(fontWeight: FontWeight.bold, color: Colors.blue),
+                      )),
+                )
               ],
             ),
           )

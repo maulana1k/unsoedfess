@@ -23,26 +23,55 @@ class _InboxPageState extends State<InboxPage> {
         scrolledUnderElevation: 0,
         title: Row(
           children: [
-            Text('Messages Inbox',
-                style: GoogleFonts.poppins(fontWeight: FontWeight.w700).copyWith(fontSize: 24)),
-            const SizedBox(width: 15),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
-              decoration:
-                  BoxDecoration(color: Colors.blue, borderRadius: BorderRadius.circular(20)),
-              child: const Text('12',
-                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.white)),
-            ),
+            Text('Messages',
+                style: GoogleFonts.poppins(fontWeight: FontWeight.w700).copyWith(fontSize: 26)),
+            const SizedBox(width: 5),
+            const Badge(
+                backgroundColor: Colors.blue,
+                label: Text('2', style: TextStyle(color: Colors.white)))
           ],
         ),
-        actions: [IconButton(onPressed: () {}, icon: const Icon(FluentIcons.search_16_filled))],
+        actions: [
+          IconButton(
+              onPressed: () {},
+              iconSize: 28,
+              icon: const Badge(smallSize: 10, child: Icon(FluentIcons.mail_inbox_16_filled))),
+          IconButton(
+              onPressed: () {}, iconSize: 28, icon: const Icon(FluentIcons.compose_16_filled)),
+        ],
       ),
-      body: const SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
+      body: SingleChildScrollView(
+        physics: const ClampingScrollPhysics(),
         child: Column(
           children: [
-            NamedChat(),
-            AnonymChat(),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                decoration: BoxDecoration(
+                    color: Colors.grey.shade100, borderRadius: BorderRadius.circular(20)),
+                child: const Row(
+                  children: [
+                    Icon(FluentIcons.search_16_filled, size: 20, color: Colors.grey),
+                    Expanded(
+                      child: TextField(
+                          decoration: InputDecoration(
+                        isCollapsed: true,
+                        hintText: 'Search messages',
+                        isDense: true,
+                        border: InputBorder.none,
+                        hintStyle: TextStyle(fontSize: 15, color: Colors.grey),
+                        contentPadding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 12),
+                      )),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(height: 5),
+            const NamedChat(),
+            const NamedChat(),
+            const NamedChat(),
           ],
         ),
       ),
@@ -62,7 +91,7 @@ class NamedChat extends StatelessWidget {
         Navigator.push(context, CupertinoPageRoute(builder: (context) => const MessagePage()));
       },
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         child: const Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -70,28 +99,29 @@ class NamedChat extends StatelessWidget {
               radius: 24,
               backgroundImage: NetworkImage('https://bit.ly/dan-abramov'),
             ),
-            SizedBox(width: 10),
+            SizedBox(width: 16),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('kevin.larr',
+                  Text('Erick Ganteng',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: 16,
+                        fontSize: 14,
                       )),
-                  Row(
-                    children: [
-                      Text('Lagi sibuk gak?',
-                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                      SizedBox(width: 8),
-                      Icon(FluentIcons.circle_12_filled, color: Colors.blue, size: 10)
-                    ],
-                  ),
+                  Text('Lagi sibuk gak?',
+                      style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
                 ],
               ),
             ),
-            Text('4h', style: TextStyle(color: Colors.grey, fontSize: 14)),
+            Column(
+              children: [
+                Text('4h', style: TextStyle(color: Colors.grey, fontSize: 14)),
+                Badge(
+                    backgroundColor: Colors.blue,
+                    label: Text('1', style: TextStyle(color: Colors.white)))
+              ],
+            ),
           ],
         ),
       ),

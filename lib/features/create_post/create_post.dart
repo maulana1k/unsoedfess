@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 
 class CreatePost extends StatefulWidget {
@@ -31,7 +32,8 @@ class _CreatePostState extends State<CreatePost> {
         leading: IconButton(
             onPressed: () => Navigator.pop(context),
             icon: const Icon(FluentIcons.dismiss_12_regular)),
-        title: const Text('Write Post', style: TextStyle(fontWeight: FontWeight.bold)),
+        title: Text('Create Post',
+            style: GoogleFonts.poppins(fontWeight: FontWeight.w600).copyWith(fontSize: 20)),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 20),

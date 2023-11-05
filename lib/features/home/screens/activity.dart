@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
-class NotificationPage extends StatefulWidget {
-  const NotificationPage({super.key});
+class ActivityPage extends StatefulWidget {
+  const ActivityPage({super.key});
 
   @override
-  State<NotificationPage> createState() => _NotificationPageState();
+  State<ActivityPage> createState() => _ActivityPageState();
 }
 
-class _NotificationPageState extends State<NotificationPage> {
+class _ActivityPageState extends State<ActivityPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Notification',
-          style: TextStyle(fontWeight: FontWeight.bold),
+        title: Text(
+          'Activity',
+          style: GoogleFonts.poppins(fontWeight: FontWeight.w700).copyWith(fontSize: 24),
         ),
       ),
       body: const SingleChildScrollView(
@@ -22,9 +23,6 @@ class _NotificationPageState extends State<NotificationPage> {
           width: double.infinity,
           child: Column(
             children: [
-              NotificationTile(),
-              NotificationTile(),
-              NotificationTile(),
               NotificationTile(),
             ],
           ),
@@ -54,7 +52,7 @@ class NotificationTile extends StatelessWidget {
             SizedBox(
               width: 10,
             ),
-            Text('kevin.larr', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+            Text('erick.rs', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
             Text(' start following you', style: TextStyle(fontSize: 16)),
           ],
         ),

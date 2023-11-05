@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';

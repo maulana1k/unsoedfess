@@ -1,6 +1,7 @@
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:badges/badges.dart' as badges;
+import 'package:google_fonts/google_fonts.dart';
 
 class MenfessPage extends StatefulWidget {
   const MenfessPage({super.key});
@@ -15,7 +16,8 @@ class _MenfessPageState extends State<MenfessPage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text('Menfess', style: TextStyle(fontWeight: FontWeight.bold)),
+        title: Text('Menfess',
+            style: GoogleFonts.poppins(fontWeight: FontWeight.w700).copyWith(fontSize: 24)),
         backgroundColor: Colors.white,
       ),
       body: Container(
@@ -27,16 +29,16 @@ class _MenfessPageState extends State<MenfessPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  width: 60,
-                  height: 60,
+                  width: 50,
+                  height: 50,
                   decoration: BoxDecoration(
                       image: const DecorationImage(
                           image: NetworkImage(
                               'https://www.itb.ac.id/files/dokumentasi/1641892369-ITB-Kampus-Jatinangor-1.JPG'),
                           fit: BoxFit.cover),
-                      borderRadius: BorderRadius.circular(12)),
+                      borderRadius: BorderRadius.circular(30)),
                 ),
-                const SizedBox(width: 10),
+                const SizedBox(width: 16),
                 const Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -57,46 +59,78 @@ class _MenfessPageState extends State<MenfessPage> {
                         ),
                       ],
                     ),
-                    // Text('145  Posts', style: TextStyle(color: Colors.grey, fontSize: 15))
-                    // Icon(FluentIcons.circle_16_filled, size: 8, color: Colors.blue),
-                    SizedBox(width: 6),
-                    Text('4 new posts',
-                        style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold)),
+                    Text('10 minutes ago', style: TextStyle(color: Colors.grey)),
                   ],
                 )
               ],
             ),
-            const SizedBox(height: 14),
             Container(
                 width: double.infinity,
-                padding: const EdgeInsets.all(16),
+                margin: const EdgeInsets.symmetric(vertical: 16),
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
                 decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(16),
-                    border: Border.all(color: Colors.grey.shade300)),
-                child: const Column(
+                  color: Colors.grey.shade100,
+                  borderRadius: BorderRadius.circular(12),
+                  // border: Border.all(color: Colors.grey.shade300),
+                ),
+                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Jends! info loker dong.', style: TextStyle(fontSize: 18)),
-                    Text('10 minutes ago', style: TextStyle(color: Colors.grey)),
+                    const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Text('Jends! info loker dong.', style: TextStyle(fontSize: 18)),
+                    ),
+                    // const SizedBox(height: 10),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        OutlinedButton.icon(
+                            onPressed: () {},
+                            style: const ButtonStyle(
+                                iconColor: MaterialStatePropertyAll(Colors.black),
+                                visualDensity: VisualDensity.compact,
+                                padding: MaterialStatePropertyAll(EdgeInsets.all(0)),
+                                side: MaterialStatePropertyAll(BorderSide.none)),
+                            icon: const Icon(FluentIcons.heart_16_regular),
+                            label: const Text('63', style: TextStyle(color: Colors.black))),
+                        OutlinedButton.icon(
+                            onPressed: () {},
+                            style: const ButtonStyle(
+                                iconColor: MaterialStatePropertyAll(Colors.black),
+                                visualDensity: VisualDensity.compact,
+                                padding: MaterialStatePropertyAll(EdgeInsets.all(0)),
+                                side: MaterialStatePropertyAll(BorderSide.none)),
+                            icon: const Icon(FluentIcons.arrow_repeat_all_16_regular),
+                            label: const Text('63', style: TextStyle(color: Colors.black))),
+                        OutlinedButton.icon(
+                            onPressed: () {},
+                            style: const ButtonStyle(
+                                iconColor: MaterialStatePropertyAll(Colors.black),
+                                visualDensity: VisualDensity.compact,
+                                padding: MaterialStatePropertyAll(EdgeInsets.all(0)),
+                                side: MaterialStatePropertyAll(BorderSide.none)),
+                            icon: const Icon(FluentIcons.bookmark_16_regular),
+                            label: const Text('63', style: TextStyle(color: Colors.black))),
+                        OutlinedButton.icon(
+                            onPressed: () {},
+                            style: const ButtonStyle(
+                                iconColor: MaterialStatePropertyAll(Colors.black),
+                                visualDensity: VisualDensity.compact,
+                                padding: MaterialStatePropertyAll(EdgeInsets.all(0)),
+                                side: MaterialStatePropertyAll(BorderSide.none)),
+                            icon: const Icon(FluentIcons.data_histogram_16_regular),
+                            label: const Text('63', style: TextStyle(color: Colors.black))),
+                        // SizedBox(width: 20),
+                        // const Row(children: [Icon(FluentIcons.eye_12_regular), Text('482')]),
+                        // // SizedBox(width: 20),
+                        // const Row(children: [Icon(FluentIcons.arrow_repeat_all_16_regular), Text('6')]),
+                        // // SizedBox(width: 20),
+                        // const Row(children: [Icon(FluentIcons.bookmark_16_regular), Text('14')]),
+                      ],
+                    ),
                   ],
                 )),
-            const Padding(
-              padding: EdgeInsets.symmetric(vertical: 14),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(children: [Icon(FluentIcons.heart_12_regular), Text('63')]),
-                  // SizedBox(width: 20),
-                  Row(children: [Icon(FluentIcons.eye_12_regular), Text('482')]),
-                  // SizedBox(width: 20),
-                  Row(children: [Icon(FluentIcons.arrow_repeat_all_16_regular), Text('6')]),
-                  // SizedBox(width: 20),
-                  Row(children: [Icon(FluentIcons.bookmark_16_regular), Text('14')]),
-                ],
-              ),
-            ),
-            const Text('Replies', style: TextStyle(fontWeight: FontWeight.bold))
+            const Text('All replies', style: TextStyle(fontWeight: FontWeight.bold))
           ],
         ),
       ),

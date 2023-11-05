@@ -15,13 +15,14 @@ class _FollowButtonState extends State<FollowButton> {
     if (_isFollow) {
       showModalBottomSheet(
           context: context,
+          isScrollControlled: true,
           builder: (context) {
             return Container(
                 padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
                 width: double.infinity,
                 decoration: const BoxDecoration(
                     color: Colors.white,
-                    borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
+                    borderRadius: BorderRadius.vertical(top: Radius.circular(28))),
                 child: IntrinsicHeight(
                   child: Column(
                     children: [
@@ -81,9 +82,9 @@ class _FollowButtonState extends State<FollowButton> {
       child: OutlinedButton(
         onPressed: _followAction,
         style: ButtonStyle(
+            visualDensity: VisualDensity.comfortable,
             side: MaterialStateProperty.all(
                 const BorderSide(color: Colors.transparent)), // Change the border color to grey
-            // overlayColor: MaterialStateProperty.all(Colors.grey.shade400),
             backgroundColor:
                 MaterialStatePropertyAll(_isFollow ? Colors.grey.shade200 : Colors.black)),
         child: Text(_isFollow ? 'Following' : 'Follow',

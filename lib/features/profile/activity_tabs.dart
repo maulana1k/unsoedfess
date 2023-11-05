@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:unsoedfess/features/cards/menfess_card.dart';
-import 'package:unsoedfess/features/cards/post_card.dart';
 
 class ActivityTabs extends StatefulWidget {
   const ActivityTabs({super.key});
@@ -50,10 +49,7 @@ class _ActivityTabsState extends State<ActivityTabs> with TickerProviderStateMix
               controller: _tabController,
               children: const <Widget>[
                 Column(
-                  children: [
-                    PostCard(),
-                    PostCard(),
-                  ],
+                  children: [],
                 ),
                 Column(
                   children: [MenfessCard()],

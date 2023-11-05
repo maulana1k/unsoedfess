@@ -2,6 +2,8 @@ import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:google_fonts/google_fonts.dart';
+import 'package:iconify_flutter/iconify_flutter.dart';
+import 'package:iconify_flutter/icons/bx.dart';
 import 'package:unsoedfess/features/cards/menfess_card.dart';
 
 class ChannelPage extends StatefulWidget {
@@ -15,29 +17,26 @@ class _ChannelPageState extends State<ChannelPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+      ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Stack(
-              children: [
-                Container(
-                  width: double.infinity,
-                  height: 200,
-                  decoration: BoxDecoration(
-                      border: Border(bottom: BorderSide(color: Colors.grey.shade300)),
-                      image: const DecorationImage(
-                          image: NetworkImage(
-                              'https://akcdn.detik.net.id/community/media/visual/2021/03/13/kampus-universitas-indonesia-dok-istimewa.jpeg?w=700&q=90'),
-                          fit: BoxFit.cover)),
-                ),
-                Positioned(
-                    left: 10,
-                    top: 20,
-                    child: IconButton(
-                        onPressed: () => Navigator.pop(context),
-                        icon: const Icon(FluentIcons.arrow_left_20_filled))),
-              ],
+            AspectRatio(
+              aspectRatio: 1,
+              child: Container(
+                width: double.infinity,
+                decoration: BoxDecoration(
+                    border: Border(bottom: BorderSide(color: Colors.grey.shade300)),
+                    image: const DecorationImage(
+                        image: NetworkImage(
+                            'https://akcdn.detik.net.id/community/media/visual/2021/03/13/kampus-universitas-indonesia-dok-istimewa.jpeg?w=700&q=90'),
+                        fit: BoxFit.cover)),
+              ),
             ),
             Container(
               decoration: const BoxDecoration(color: Colors.white),
@@ -48,9 +47,9 @@ class _ChannelPageState extends State<ChannelPage> {
                   Row(
                     children: [
                       Text(
-                        'Unsyut Base',
-                        style: GoogleFonts.nunitoSans(fontWeight: FontWeight.w800)
-                            .copyWith(fontSize: 34),
+                        'Teknik Jaya',
+                        style:
+                            GoogleFonts.poppins(fontWeight: FontWeight.w700).copyWith(fontSize: 26),
                       ),
                       const SizedBox(width: 8),
                       const badges.Badge(
@@ -63,84 +62,58 @@ class _ChannelPageState extends State<ChannelPage> {
                       ),
                     ],
                   ),
+
+                  // const SizedBox(height: 10),
+                  const Text(
+                    'Tempat tanya, sharing dan cari jodoh jika beruntung 🤪',
+                    style: TextStyle(fontSize: 16),
+                  ),
                   const SizedBox(height: 10),
-                  IntrinsicHeight(
+                  const IntrinsicHeight(
                     child: Row(
                       children: [
-                        const Column(
+                        Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('315',
-                                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
-                            Text('Posts',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 14, color: Colors.grey)),
+                            Text('1.523',
+                                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                            SizedBox(width: 4),
+                            Text('Followers',
+                                style: TextStyle(fontWeight: FontWeight.normal, fontSize: 16)),
                           ],
                         ),
-                        const VerticalDivider(thickness: 1, width: 50, indent: 12, endIndent: 12),
-                        const Column(
+                        SizedBox(width: 16),
+                        Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('2.351',
-                                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
-                            Text('Joined',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 14, color: Colors.grey)),
+                            Text('245',
+                                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                            SizedBox(width: 4),
+                            Text('Members',
+                                style: TextStyle(fontWeight: FontWeight.normal, fontSize: 16)),
                           ],
                         ),
-                        const SizedBox(width: 20),
-                        Expanded(
-                          child: Stack(
-                              children: List.generate(5, (index) {
-                            return Positioned(
-                                left: index * 28,
-                                child: CircleAvatar(
-                                  radius: 20,
-                                  backgroundImage: NetworkImage([
-                                    'https://bit.ly/dan-abramov',
-                                    'https://bit.ly/prosper-baba',
-                                    'https://bit.ly/kent-c-dodds',
-                                    'https://bit.ly/code-beast',
-                                    'https://bit.ly/sage-adebayo'
-                                  ][index]),
-                                ));
-                          })),
-                        )
+                        SizedBox(width: 20),
                       ],
                     ),
                   ),
-                  const SizedBox(height: 10),
-                  const Text(
-                    'Tempat tanya, sharing dan cari jodoh jika beruntung 🤪 tapi bukan tempat ribut yaaa',
-                    style: TextStyle(fontSize: 16),
-                  ),
+
                   const SizedBox(height: 10),
                   SizedBox(
                     width: double.infinity,
                     child: Row(
                       children: [
-                        Expanded(
-                          child: ElevatedButton(
-                              style: const ButtonStyle(
-                                  backgroundColor: MaterialStatePropertyAll(Colors.black)),
-                              onPressed: () {},
-                              child: const Text(
-                                'Request to Join',
-                                style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-                              )),
-                        ),
+                        ElevatedButton(
+                            style: const ButtonStyle(
+                                visualDensity: VisualDensity.compact,
+                                backgroundColor: MaterialStatePropertyAll(Colors.black)),
+                            onPressed: () {},
+                            child: const Text(
+                              'Follow',
+                              style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                            )),
                         const SizedBox(width: 10),
-                        // Ink(
-                        //   decoration: ShapeDecoration(
-                        //     color: Colors.grey.shade200,
-                        //     shape: const CircleBorder(),
-                        //   ),
-                        //   child: IconButton(
-                        //     icon: const Icon(FluentIcons.more_horizontal_24_filled),
-                        //     color: Colors.black,
-                        //     onPressed: () {},
-                        //   ),
-                        // ),
+                        const JoinMemberButton()
                       ],
                     ),
                   )
@@ -163,5 +136,101 @@ class _ChannelPageState extends State<ChannelPage> {
         ),
       ),
     );
+  }
+}
+
+class JoinMemberButton extends StatefulWidget {
+  const JoinMemberButton({
+    super.key,
+  });
+
+  @override
+  State<JoinMemberButton> createState() => _JoinMemberButtonState();
+}
+
+class _JoinMemberButtonState extends State<JoinMemberButton> {
+  void _openModal() {
+    showModalBottomSheet(
+        context: context,
+        builder: (context) {
+          return Container(
+              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+              width: double.infinity,
+              decoration: BoxDecoration(
+                  color: Colors.grey.shade100,
+                  borderRadius: const BorderRadius.vertical(top: Radius.circular(20))),
+              child: IntrinsicHeight(
+                child: Column(
+                  children: [
+                    Container(
+                        width: 40,
+                        height: 4,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(30),
+                          color: Colors.grey.shade200,
+                        )),
+                    Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 20),
+                        child: SizedBox(
+                          width: double.infinity,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                height: 100,
+                                child: AspectRatio(
+                                  aspectRatio: 1,
+                                  child: Container(
+                                    clipBehavior: Clip.hardEdge,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(50),
+                                        image: const DecorationImage(
+                                            fit: BoxFit.cover,
+                                            image: NetworkImage(
+                                                'https://akcdn.detik.net.id/community/media/visual/2021/03/13/kampus-universitas-indonesia-dok-istimewa.jpeg?w=700&q=90'))),
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(height: 20),
+                              Row(
+                                children: [
+                                  const Iconify(Bx.badge_check, size: 32),
+                                  const SizedBox(width: 6),
+                                  Text('Join as member of',
+                                      style: GoogleFonts.poppins(fontWeight: FontWeight.w700)
+                                          .copyWith(fontSize: 24)),
+                                ],
+                              ),
+                              Text('Teknik Jaya',
+                                  style: GoogleFonts.poppins(fontWeight: FontWeight.w700)
+                                      .copyWith(fontSize: 30)),
+                              const Divider(
+                                height: 30,
+                                thickness: 0.5,
+                                color: Colors.grey,
+                              ),
+                              const Text(
+                                'By becoming a member you will get access as below',
+                                style: TextStyle(fontSize: 16),
+                              )
+                            ],
+                          ),
+                        )),
+                  ],
+                ),
+              ));
+        });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return OutlinedButton(
+        style: ButtonStyle(
+            visualDensity: VisualDensity.compact,
+            padding: const MaterialStatePropertyAll(EdgeInsets.all(0)),
+            side: MaterialStateProperty.all(const BorderSide(color: Colors.purple)),
+            overlayColor: MaterialStateProperty.all(Colors.purple.shade100)),
+        onPressed: _openModal,
+        child: const Iconify(Bx.user_plus, color: Colors.purple));
   }
 }

@@ -1,5 +1,4 @@
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -25,11 +24,14 @@ class _EventPageState extends State<EventPage> {
       ),
       body: Column(
         children: [
-          Container(
-            height: 400,
-            decoration: const BoxDecoration(
-                image: DecorationImage(
-                    fit: BoxFit.cover, image: AssetImage('assets/images/poster-feed.jpg'))),
+          AspectRatio(
+            aspectRatio: 3 / 4,
+            child: Container(
+              // height: 400,
+              decoration: const BoxDecoration(
+                  image: DecorationImage(
+                      fit: BoxFit.cover, image: AssetImage('assets/images/poster-feed.jpg'))),
+            ),
           ),
           Container(
             padding: const EdgeInsets.all(16),
@@ -81,6 +83,14 @@ class _EventPageState extends State<EventPage> {
           )
         ],
       ),
+      floatingActionButton: FloatingActionButton.extended(
+          backgroundColor: Colors.black,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
+          onPressed: () {},
+          label: const Text(
+            'Register Now',
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          )),
     );
   }
 }

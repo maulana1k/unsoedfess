@@ -5,7 +5,6 @@ import 'package:unsoedfess/features/auth/create_profile.dart';
 // import 'package:unsoedfess/features/auth/new_profile.dart';
 import 'package:unsoedfess/features/auth/services/auth_service.dart';
 import 'package:unsoedfess/features/auth/signin.dart';
-import 'package:unsoedfess/features/profile/edit_profile.dart';
 import 'package:unsoedfess/provider/user_provider.dart';
 
 class SignUp extends ConsumerStatefulWidget {

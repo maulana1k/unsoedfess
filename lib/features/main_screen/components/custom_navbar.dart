@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:iconify_flutter/icons/bx.dart';
-import 'package:unsoedfess/provider/user_provider.dart';
+import 'package:unsoedfess/features/profile/avatar_profile.dart';
 
 class CustomBottomNavbar extends StatefulWidget {
   const CustomBottomNavbar({super.key, required this.pageIndex, required this.onChangePage});
@@ -19,6 +18,7 @@ class _CustomBottomNavbarState extends State<CustomBottomNavbar> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: const EdgeInsets.all(0),
       decoration:
           BoxDecoration(border: Border(top: BorderSide(color: Colors.grey.shade300, width: 0.5))),
       child: NavigationBar(
@@ -32,51 +32,41 @@ class _CustomBottomNavbarState extends State<CustomBottomNavbar> {
           animationDuration: const Duration(milliseconds: 0),
           labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
           destinations: [
-            const NavigationDestination(
-                icon: Icon(FluentIcons.home_16_regular, size: 26),
-                selectedIcon: Icon(FluentIcons.home_16_filled, size: 26),
+            NavigationDestination(
+                icon: Icon(FluentIcons.home_12_regular, size: 26, color: Colors.grey.shade600),
+                selectedIcon: const Icon(FluentIcons.home_12_filled, size: 26),
                 label: 'Home'),
-            const NavigationDestination(
-                icon: Icon(FluentIcons.search_16_regular, size: 26),
-                selectedIcon: Icon(FluentIcons.search_16_filled, size: 26),
+            // NavigationDestination(
+            //     icon: Icon(FluentIcons.search_16_regular, size: 26, color: Colors.grey.shade600),
+            //     selectedIcon: const Icon(FluentIcons.search_16_filled, size: 26),
+            //     label: 'Search'),
+            NavigationDestination(
+                icon: Iconify(Bx.search, size: 24, color: Colors.grey.shade600),
+                selectedIcon: const Iconify(Bx.search, size: 24),
                 label: 'Search'),
-            const NavigationDestination(
-                icon: Icon(FluentIcons.channel_16_regular, size: 28),
-                selectedIcon: Icon(FluentIcons.channel_16_filled, size: 28),
+            NavigationDestination(
+                icon: Icon(FluentIcons.content_view_gallery_16_regular,
+                    size: 28, color: Colors.grey.shade600),
+                selectedIcon: const Icon(FluentIcons.content_view_gallery_16_filled, size: 28),
                 label: 'Events'),
-            const NavigationDestination(
+            NavigationDestination(
                 icon: Badge(
-                    label: Text('12', style: TextStyle(fontSize: 10)),
-                    child: Icon(FluentIcons.mail_16_regular, size: 28)),
-                selectedIcon: Badge(
-                    label: Text('12', style: TextStyle(fontSize: 9)),
-                    child: Icon(FluentIcons.mail_16_filled, size: 28)),
+                    label: const Text('1', style: TextStyle(fontSize: 10)),
+                    child:
+                        Icon(FluentIcons.chat_16_regular, size: 28, color: Colors.grey.shade600)),
+                selectedIcon: const Badge(
+                    label: Text('1', style: TextStyle(fontSize: 10)),
+                    child: Icon(FluentIcons.chat_16_filled, size: 28)),
                 label: 'Messages'),
-            Consumer(builder: (context, ref, child) {
-              final avatar = ref.read(userProvider).profile?.avatar;
-              return NavigationDestination(
-                  icon: avatar == ''
-                      ? const Iconify(Bx.user, size: 24)
-                      : CircleAvatar(
-                          radius: 14,
-                          backgroundImage: NetworkImage(avatar!),
-                        ),
-                  selectedIcon: Container(
+            NavigationDestination(
+                icon: const AvatarProfile(radius: 15),
+                selectedIcon: Container(
                     padding: const EdgeInsets.all(2),
                     decoration: BoxDecoration(
-                        border: avatar == ''
-                            ? Border.all(color: Colors.transparent)
-                            : Border.all(color: Colors.black, width: 2),
+                        border: Border.all(color: Colors.black, width: 2),
                         borderRadius: BorderRadius.circular(100)),
-                    child: avatar == ''
-                        ? const Iconify(Bx.user_circle, size: 32)
-                        : CircleAvatar(
-                            radius: 14,
-                            backgroundImage: NetworkImage(avatar!),
-                          ),
-                  ),
-                  label: 'Profile');
-            }),
+                    child: const AvatarProfile(radius: 15)),
+                label: 'Profile'),
           ]),
     );
   }

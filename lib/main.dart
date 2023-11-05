@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:unsoedfess/config/firebase_options.dart';
-import 'package:unsoedfess/features/auth/signin.dart';
 import 'package:unsoedfess/features/main_screen/screens/main_screen.dart';
 
 void main() async {

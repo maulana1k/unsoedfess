@@ -12,21 +12,21 @@ class MenfessCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-          color: Colors.grey.shade100,
-          border: Border(bottom: BorderSide(color: Colors.grey.shade300, width: 0.5))),
+      padding: const EdgeInsets.all(10),
+      // decoration: BoxDecoration(
+      //     // color: Colors.grey.shade100,
+      //     border: Border(bottom: BorderSide(color: Colors.grey.shade300, width: 0.5))),
       child: InkWell(
         onTap: () {
           Navigator.push(context, CupertinoPageRoute(builder: (context) => const MenfessPage()));
         },
         child: Container(
           clipBehavior: Clip.hardEdge,
-          padding: const EdgeInsets.all(12),
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(16),
               color: Colors.white,
-              border: Border.all(color: Colors.grey.shade300)),
+              border: Border.all(color: Colors.grey.shade400, width: 0.5)),
           child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             const Row(
               children: [
@@ -46,7 +46,7 @@ class MenfessCard extends StatelessWidget {
                           image: NetworkImage(
                               'https://www.itb.ac.id/files/dokumentasi/1641892369-ITB-Kampus-Jatinangor-1.JPG'),
                           fit: BoxFit.cover),
-                      borderRadius: BorderRadius.circular(8)),
+                      borderRadius: BorderRadius.circular(20)),
                 ),
                 const SizedBox(width: 10),
                 const Column(
@@ -80,7 +80,7 @@ class MenfessCard extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             const Text('46 Replies',
-                style: TextStyle(fontWeight: FontWeight.bold, color: Colors.grey))
+                style: TextStyle(fontWeight: FontWeight.normal, color: Colors.grey))
           ]),
         ),
       ),

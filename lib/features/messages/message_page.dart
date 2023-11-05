@@ -26,7 +26,7 @@ class _MessagePageState extends State<MessagePage> {
               backgroundImage: NetworkImage('https://bit.ly/dan-abramov'),
             ),
             SizedBox(width: 10),
-            Text('kevin.larr', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18))
+            Text('Erick Ganteng', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18))
           ],
         ),
         actions: [
