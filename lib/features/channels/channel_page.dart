@@ -48,8 +48,8 @@ class _ChannelPageState extends State<ChannelPage> {
                     children: [
                       Text(
                         'Teknik Jaya',
-                        style:
-                            GoogleFonts.poppins(fontWeight: FontWeight.w700).copyWith(fontSize: 26),
+                        style: GoogleFonts.notoSans(fontWeight: FontWeight.w700)
+                            .copyWith(fontSize: 24),
                       ),
                       const SizedBox(width: 8),
                       const badges.Badge(

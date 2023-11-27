@@ -29,6 +29,7 @@ class MainApp extends ConsumerWidget {
       fontFamily: GoogleFonts.notoSans().fontFamily,
       colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueAccent),
       useMaterial3: true,
+      splashColor: Colors.transparent,
     );
   }
 }

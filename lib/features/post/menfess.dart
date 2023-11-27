@@ -17,7 +17,7 @@ class _MenfessPageState extends State<MenfessPage> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text('Menfess',
-            style: GoogleFonts.poppins(fontWeight: FontWeight.w700).copyWith(fontSize: 24)),
+            style: GoogleFonts.poppins(fontWeight: FontWeight.w700).copyWith(fontSize: 20)),
         backgroundColor: Colors.white,
       ),
       body: Container(
@@ -25,28 +25,23 @@ class _MenfessPageState extends State<MenfessPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
+            const Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(
-                  width: 50,
-                  height: 50,
-                  decoration: BoxDecoration(
-                      image: const DecorationImage(
-                          image: NetworkImage(
-                              'https://www.itb.ac.id/files/dokumentasi/1641892369-ITB-Kampus-Jatinangor-1.JPG'),
-                          fit: BoxFit.cover),
-                      borderRadius: BorderRadius.circular(30)),
+                CircleAvatar(
+                  radius: 24,
+                  backgroundImage: NetworkImage(
+                      'https://www.itb.ac.id/files/dokumentasi/1641892369-ITB-Kampus-Jatinangor-1.JPG'),
                 ),
-                const SizedBox(width: 16),
-                const Column(
+                SizedBox(width: 16),
+                Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
                       children: [
                         Text(
                           'Teknik Jaya',
-                          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                         ),
                         SizedBox(width: 6),
                         badges.Badge(

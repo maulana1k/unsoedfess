@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:unsoedfess/features/events/poster_view.dart';
+import 'package:unsoedfess/features/explore/poster_view.dart';
 
 class PosterImage extends StatelessWidget {
   final String imageUrl;

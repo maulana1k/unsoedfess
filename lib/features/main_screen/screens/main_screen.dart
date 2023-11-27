@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:unsoedfess/features/events/events.dart';
+import 'package:unsoedfess/features/explore/explore.dart';
 import 'package:unsoedfess/features/main_screen/components/custom_navbar.dart';
 import 'package:unsoedfess/features/home/screens/home_page.dart';
 import 'package:unsoedfess/features/messages/messages.dart';
 import 'package:unsoedfess/features/profile/my_profile.dart';
-import 'package:unsoedfess/features/explore/explore.dart';
+import 'package:unsoedfess/features/search/search.dart';
 
 class MainScreen extends ConsumerStatefulWidget {
   const MainScreen({super.key});
@@ -15,15 +15,15 @@ class MainScreen extends ConsumerStatefulWidget {
 }
 
 class _MainScreenState extends ConsumerState<MainScreen> {
-  final ScrollController _controller = ScrollController();
-  final double _bottomNavBarHeight = 50;
-  late final ScrollListener _model;
+  // final ScrollController _controller = ScrollController();
+  // final double _bottomNavBarHeight = 50;
+  // late final ScrollListener _model;
   int pageIndex = 0;
 
   @override
   void initState() {
     super.initState();
-    _model = ScrollListener.initialise(_controller, _bottomNavBarHeight);
+    // _model = ScrollListener.initialise(_controller, _bottomNavBarHeight);
   }
 
   void changePage(index) {
@@ -37,9 +37,9 @@ class _MainScreenState extends ConsumerState<MainScreen> {
     return Scaffold(
       body: [
         const HomePage(),
-        const Explore(),
-        const Events(),
-        const InboxPage(),
+        const Search(),
+        // const Explore(),
+        // const InboxPage(),
         const MyProfilePage(),
       ][pageIndex],
       bottomNavigationBar: CustomBottomNavbar(pageIndex: pageIndex, onChangePage: changePage),

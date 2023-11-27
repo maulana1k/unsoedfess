@@ -1,7 +1,7 @@
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:unsoedfess/features/events/event_page.dart';
+import 'package:unsoedfess/features/explore/event_page.dart';
 
 class EventFeed extends StatelessWidget {
   const EventFeed({
@@ -24,8 +24,6 @@ class EventFeed extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Music Festival - Ecopro 2023',
-                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
                   Row(
                     children: [
                       CircleAvatar(
@@ -38,30 +36,14 @@ class EventFeed extends StatelessWidget {
                           style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black)),
                     ],
                   ),
-                  SizedBox(height: 10),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Row(
-                          children: [
-                            Icon(FluentIcons.location_16_regular, size: 18),
-                            SizedBox(width: 8),
-                            Expanded(
-                              child: Text('GOR Satria Purwokerto', overflow: TextOverflow.ellipsis),
-                            )
-                          ],
-                        ),
-                      ),
-                      Row(
-                        children: [
-                          Icon(FluentIcons.calendar_16_regular, size: 18),
-                          SizedBox(width: 8),
-                          Text('21 JAN 2023')
-                        ],
-                      ),
-                      SizedBox(width: 14),
-                    ],
-                  ),
+                  SizedBox(height: 5),
+                  Text('Music Festival - Ecopro 2023',
+                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+                  SizedBox(height: 5),
+                  Text(
+                    'GOR Satria Purwokerto, 21 Januari 2023',
+                    style: TextStyle(fontSize: 15),
+                  )
                 ],
               ),
             ),

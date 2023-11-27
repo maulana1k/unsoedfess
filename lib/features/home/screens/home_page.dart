@@ -70,7 +70,7 @@ class _HomePageState extends ConsumerState<HomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.blue.shade600,
+        backgroundColor: Colors.black,
         shape: const CircleBorder(),
         elevation: 12,
         onPressed: () {

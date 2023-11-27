@@ -1,120 +1,134 @@
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:iconify_flutter/icons/bx.dart';
-import 'package:unsoedfess/features/cards/post_card.dart';
-import 'package:unsoedfess/features/explore/channel_card.dart';
-import 'package:unsoedfess/features/explore/provider/explore_provider.dart';
-import 'package:unsoedfess/features/explore/search_page.dart';
 
-class Explore extends ConsumerStatefulWidget {
+import 'event_feed.dart';
+import 'poster_image.dart';
+import 'top_banner.dart';
+
+class Explore extends StatefulWidget {
   const Explore({super.key});
 
   @override
-  ConsumerState<Explore> createState() => _ExploreState();
+  State<Explore> createState() => _ExploreState();
 }
 
-class _ExploreState extends ConsumerState<Explore> {
+class _ExploreState extends State<Explore> {
+  final List posterImages = [
+    'assets/images/poster.jpg',
+    'assets/images/poster-feed.jpg',
+    'assets/images/poster-feed1.jpg',
+  ];
   @override
   Widget build(BuildContext context) {
-    final fyp = ref.read(exploreProvider).forYouPage;
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        scrolledUnderElevation: 0,
-        backgroundColor: Colors.white,
-        title: GestureDetector(
-          onTap: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => const SearchPage()));
-          },
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-            decoration:
-                BoxDecoration(color: Colors.grey.shade200, borderRadius: BorderRadius.circular(40)),
-            child: const Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Iconify(Bx.search, size: 20, color: Colors.black),
-                SizedBox(width: 10),
-                Text('Search',
-                    style:
-                        TextStyle(fontSize: 16, fontWeight: FontWeight.normal, color: Colors.grey))
+      resizeToAvoidBottomInset: false,
+      body: NestedScrollView(
+        floatHeaderSlivers: true,
+        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+          return <Widget>[
+            SliverAppBar(
+              automaticallyImplyLeading: false,
+              backgroundColor: Colors.white,
+              scrolledUnderElevation: 0,
+              title: Text('Explore',
+                  style: GoogleFonts.poppins(fontWeight: FontWeight.w700).copyWith(fontSize: 26)),
+              actions: [
+                IconButton(onPressed: () {}, icon: const Icon(FluentIcons.alert_16_regular)),
+                IconButton(onPressed: () {}, icon: const Icon(FluentIcons.search_16_regular)),
               ],
             ),
-          ),
-        ),
-      ),
-      body: RefreshIndicator(
-        color: Colors.black,
-        onRefresh: () {
-          return Future.delayed(const Duration(seconds: 2));
+          ];
         },
-        child: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
-          child: SizedBox(
-            width: double.infinity,
+        body: RefreshIndicator(
+          color: Colors.black,
+          onRefresh: () {
+            return Future.delayed(const Duration(seconds: 2));
+          },
+          child: SingleChildScrollView(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const HashtagTile(tag: 'StandWithPalestine', count: '42.1k'),
-                const HashtagTile(tag: 'Gibran', count: '42.1k'),
-                const HashtagTile(tag: 'Korut', count: '42.1k'),
-                const HashtagTile(tag: 'Termobarik', count: '42.1k'),
-                InkWell(
-                  onTap: () {},
-                  child: Container(
-                      width: double.infinity,
-                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-                      child: const Text('Show more', style: TextStyle(color: Colors.blue))),
-                ),
-                Divider(thickness: 0.5, height: 0, color: Colors.grey.shade300),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                  child: Row(
+                  padding: const EdgeInsets.all(0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Icon(FluentIcons.people_team_16_filled, color: Colors.blue, size: 30),
-                      const SizedBox(width: 10),
-                      Text('Channels',
-                          style:
-                              const TextStyle(fontWeight: FontWeight.w600).copyWith(fontSize: 18)),
-                      const Spacer(),
+                      const TopBanner(),
+                      const SizedBox(height: 16),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: Row(
+                                children: [
+                                  const SizedBox(width: 16),
+                                  IconButton(
+                                      onPressed: () {},
+                                      style: ButtonStyle(
+                                          visualDensity: VisualDensity.compact,
+                                          backgroundColor:
+                                              MaterialStatePropertyAll(Colors.grey.shade200)),
+                                      icon: const Icon(FluentIcons.filter_16_filled,
+                                          color: Colors.black)),
+                                  const SizedBox(width: 6),
+                                  const CategoryButton(category: 'All', isSelected: true),
+                                  const CategoryButton(category: 'Organization'),
+                                  const CategoryButton(category: 'Concert'),
+                                  const CategoryButton(category: 'Recruitmen'),
+                                  const CategoryButton(category: 'Festival'),
+                                  const CategoryButton(category: 'Contest'),
+                                  const CategoryButton(category: 'Scholarship'),
+                                ],
+                              ),
+                            ),
+                          ),
+                          // IconButton(
+                          //     onPressed: () {}, icon: const Icon(FluentIcons.options_16_filled)),
+                        ],
+                      ),
+                      const SizedBox(height: 5),
                       InkWell(
-                          onTap: () {},
-                          child:
-                              const Icon(Icons.arrow_forward_rounded, size: 20, color: Colors.grey))
+                        onTap: () {},
+                        child: const Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+                          child: Row(
+                            children: [
+                              Iconify(Bx.bxs_carousel, size: 26, color: Colors.black87),
+                              SizedBox(width: 10),
+                              Text('Story',
+                                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+                              Spacer(),
+                              Icon(Icons.arrow_forward_rounded, size: 20)
+                            ],
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 5),
+                      SizedBox(
+                          height: 180,
+                          child: SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            physics: const BouncingScrollPhysics(),
+                            child: Row(
+                                children: posterImages
+                                    .map((imgUrl) => PosterImage(imageUrl: imgUrl))
+                                    .toList()),
+                          )),
+                      const SizedBox(height: 10),
+                      const Column(
+                        children: [
+                          EventFeed(),
+                          EventFeed(),
+                          EventFeed(),
+                        ],
+                      )
                     ],
                   ),
                 ),
-                const SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  physics: BouncingScrollPhysics(),
-                  child: Row(
-                    children: [
-                      ChannelCard(),
-                      ChannelCard(),
-                      ChannelCard(),
-                      ChannelCard(),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 24),
-                Divider(thickness: 0.5, height: 0, color: Colors.grey.shade300),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                  child: Row(
-                    children: [
-                      Icon(FluentIcons.sparkle_28_filled, color: Colors.blue, size: 30),
-                      SizedBox(width: 10),
-                      Text('Explore', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                    ],
-                  ),
-                ),
-                Column(
-                  children: fyp.map((post) {
-                    return PostCard(postData: post);
-                  }).toList(),
-                )
               ],
             ),
           ),
@@ -124,40 +138,33 @@ class _ExploreState extends ConsumerState<Explore> {
   }
 }
 
-class HashtagTile extends StatelessWidget {
-  final String tag;
-  final String count;
-
-  const HashtagTile({
+class CategoryButton extends StatelessWidget {
+  final String category;
+  final bool isSelected;
+  const CategoryButton({
     super.key,
-    required this.tag,
-    required this.count,
+    required this.category,
+    this.isSelected = false,
   });
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {},
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
-        child: Row(
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    const Icon(FluentIcons.number_symbol_16_filled, size: 16),
-                    Text(tag, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                  ],
-                ),
-                Text('$count Posts',
-                    style: const TextStyle(fontWeight: FontWeight.normal, color: Colors.grey))
-              ],
-            ),
-          ],
-        ),
-      ),
+    return Container(
+      margin: const EdgeInsets.only(right: 6),
+      child: OutlinedButton(
+          onPressed: () {},
+          style: ButtonStyle(
+              visualDensity: VisualDensity.compact,
+              side: MaterialStateProperty.all(const BorderSide(color: Colors.transparent)),
+              overlayColor:
+                  MaterialStateProperty.all(isSelected ? Colors.black : Colors.grey.shade400),
+              backgroundColor:
+                  MaterialStatePropertyAll(isSelected ? Colors.black : Colors.grey.shade200)),
+          child: Text(category,
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: isSelected ? Colors.white : Colors.black,
+                  fontSize: 13))),
     );
   }
 }
