@@ -1,5 +1,8 @@
+import 'dart:developer';
 import 'dart:io';
 
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +10,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:unsoedfess/features/auth/models/user_model.dart';
+import 'package:unsoedfess/features/auth/services/auth_service.dart';
 import 'package:unsoedfess/features/main_screen/screens/main_screen.dart';
 import 'package:unsoedfess/provider/user_provider.dart';
 
@@ -47,14 +51,41 @@ class _EditProfileState extends ConsumerState<CreateProfile> {
     }
   }
 
-  Future _createProfile() async {
-    String avatar = '';
-    if (_imageFile != null) {
-      //upload firebase
+  Future<String> _uploadImage(File imageFile, String userId) async {
+    final storage = FirebaseStorage.instance;
+    try {
+      String imagePath = 'avatars/$userId/';
+      UploadTask uploadTask = storage.ref().child(imagePath).putFile(imageFile);
+      TaskSnapshot taskSnapshot = await uploadTask.whenComplete(() => null);
+      log('Upload image');
+      String downloadUrl = await taskSnapshot.ref.getDownloadURL();
+      // Use the downloadUrl as the avatar URL when updating the user profile
+      return downloadUrl;
+    } catch (e) {
+      log('Error uploading image: $e');
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(e.toString()),
+          ),
+        );
+      }
+      return '';
     }
-    UserProfile newProfile =
-        _profile.copyWith(avatar: avatar, displayName: _displayNameCtrl.text, bio: _bioCtrl.text);
+  }
+
+  Future _createProfile() async {
+    final auth = FirebaseAuth.instance;
+    String avatarUrl = '';
+    if (_imageFile != null) {
+      avatarUrl = await _uploadImage(_imageFile!, auth.currentUser!.uid);
+    }
+    final authService = AuthService();
+    UserProfile newProfile = _profile.copyWith(
+        avatar: avatarUrl, displayName: _displayNameCtrl.text, bio: _bioCtrl.text);
+    authService.saveUserProfile(auth.currentUser?.uid ?? '', newProfile);
     ref.read(userProvider).setUserData(profile: newProfile);
+
     Navigator.pushReplacement(
         context, CupertinoPageRoute(builder: (context) => const MainScreen()));
   }
@@ -62,6 +93,7 @@ class _EditProfileState extends ConsumerState<CreateProfile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       appBar: AppBar(
         backgroundColor: Colors.white,
         // automaticallyImplyLeading: false,

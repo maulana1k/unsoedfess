@@ -15,12 +15,9 @@ class ExploreProvider extends ChangeNotifier {
           content:
               'Baru selesai nonton ice cold, makin besar kemungkinan bukan Jesicca yang membunuh Mirna. Sepertinya \n "Ada sutradara dibalik kasus ini"',
           media: [
-            Media(
-                type: MediaType.image,
-                fileUrl:
-                    'https://assets.ayobandung.com/crop/0x0:0x0/750x500/webp/photo/p1/844/2023/10/06/Snapinstaapp_383228145_633134392274377_6755131242156320552_n_1080-1-3871558868.jpg')
+            'https://assets.ayobandung.com/crop/0x0:0x0/750x500/webp/photo/p1/844/2023/10/06/Snapinstaapp_383228145_633134392274377_6755131242156320552_n_1080-1-3871558868.jpg'
           ],
-          timestamp: '4 days ago',
+          timestamp: DateTime.now(),
           likes: 450,
           replies: 20,
           reposts: 0)

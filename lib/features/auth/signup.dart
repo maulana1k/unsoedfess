@@ -42,7 +42,7 @@ class _SignUpState extends ConsumerState<SignUp> {
         ref.read(userProvider).setUserData(profile: userProfile);
         _stopLoading();
         if (context.mounted) {
-          Navigator.pushReplacement(
+          Navigator.push(
             context,
             MainScreenPageRoute(builder: (context) => const CreateProfile()),
           );
@@ -74,27 +74,23 @@ class _SignUpState extends ConsumerState<SignUp> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Expanded(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text('Unsoedfess',
-                            style: GoogleFonts.merriweather(fontWeight: FontWeight.w900)
-                                .copyWith(fontSize: 26))
-                      ],
-                    ),
-                  ],
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text('Unsoedfess',
+                          style: GoogleFonts.merriweather(fontWeight: FontWeight.w900)
+                              .copyWith(fontSize: 26))
+                    ],
+                  ),
+                ],
               ),
-              // const SizedBox(height: 10),
-              const Spacer(),
-              Text("Create Account",
-                  style:
-                      GoogleFonts.nunitoSans(fontWeight: FontWeight.w800).copyWith(fontSize: 30)),
-              const SizedBox(height: 5),
+              const SizedBox(height: 40),
+              const Text("Create Account",
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+              const SizedBox(height: 20),
               Form(
                   key: _formKey,
                   child: Column(

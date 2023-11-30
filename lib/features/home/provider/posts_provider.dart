@@ -16,7 +16,7 @@ class PostsProvider extends ChangeNotifier {
           content:
               'please don’t stop talking about palestine !!! your silence and comfort is a privilege. pls remember that the people in palestine do not get a break and they are currently and actively having to live through this everyday. use your voice and platform!',
           media: [],
-          timestamp: '1 hours ago',
+          timestamp: DateTime.now(),
           likes: 912,
           replies: 131,
           reposts: 63),
@@ -29,12 +29,9 @@ class PostsProvider extends ChangeNotifier {
           content:
               'Baru selesai nonton ice cold, makin besar kemungkinan bukan Jesicca yang membunuh Mirna. Sepertinya \n "Ada sutradara dibalik kasus ini"',
           media: [
-            Media(
-                type: MediaType.image,
-                fileUrl:
-                    'https://assets.ayobandung.com/crop/0x0:0x0/750x500/webp/photo/p1/844/2023/10/06/Snapinstaapp_383228145_633134392274377_6755131242156320552_n_1080-1-3871558868.jpg')
+            'https://assets.ayobandung.com/crop/0x0:0x0/750x500/webp/photo/p1/844/2023/10/06/Snapinstaapp_383228145_633134392274377_6755131242156320552_n_1080-1-3871558868.jpg'
           ],
-          timestamp: '4 days ago',
+          timestamp: DateTime.now(),
           likes: 450,
           replies: 20,
           reposts: 0)

@@ -2,8 +2,8 @@ class PostModel {
   final String userID;
   final Author author;
   final String content;
-  final List<Media> media;
-  final String timestamp;
+  final List<String> media;
+  final DateTime timestamp;
   final int likes;
   final int replies;
   final int reposts;
@@ -23,7 +23,7 @@ class PostModel {
       'userID': userID,
       'author': author.toJson(),
       'content': content,
-      'media': media.map((m) => m.toJson()).toList(),
+      'media': media,
       'timestamp': timestamp,
       'likes': likes,
       'replies': replies,
@@ -37,7 +37,7 @@ class PostModel {
       userID: json['userID'],
       author: Author.fromJson(json['author']),
       content: json['content'],
-      media: (json['media'] as List).map((m) => Media.fromJson(m)).toList(),
+      media: json['media'],
       timestamp: json['timestamp'],
       likes: json['likes'],
       replies: json['replies'],

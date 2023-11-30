@@ -95,7 +95,7 @@ class _PostCardState extends State<PostCard> {
                                                 const TextStyle(color: Colors.grey, fontSize: 14),
                                           ),
                                           TextSpan(
-                                              text: ' ‧ ${data.timestamp}',
+                                              text: ' ‧ ${data.timestamp.toIso8601String()}',
                                               style: const TextStyle(
                                                   fontSize: 14, color: Colors.grey)),
                                         ],

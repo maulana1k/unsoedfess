@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import 'package:unsoedfess/features/home/models/post_model.dart';
 
 class ImageCarousel extends StatefulWidget {
-  final List<Media> media;
+  final List<String> media;
   const ImageCarousel({
     super.key,
     required this.media,
@@ -29,7 +28,7 @@ class _ImageCarouselState extends State<ImageCarousel> {
           child: PageView(
             physics: const BouncingScrollPhysics(),
             controller: _controller,
-            children: widget.media.map((m) {
+            children: widget.media.map((url) {
               return AspectRatio(
                 aspectRatio: 1,
                 child: Container(
@@ -37,7 +36,7 @@ class _ImageCarouselState extends State<ImageCarousel> {
                   margin: const EdgeInsets.symmetric(horizontal: 16),
                   decoration: BoxDecoration(borderRadius: BorderRadius.circular(12)),
                   child: Image.network(
-                    m.fileUrl,
+                    url,
                     fit: BoxFit.cover,
                   ),
                 ),

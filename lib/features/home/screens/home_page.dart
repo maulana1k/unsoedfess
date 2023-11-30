@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:unsoedfess/features/create_post/create_post.dart';
 import 'package:unsoedfess/features/home/provider/posts_provider.dart';
 import 'package:unsoedfess/features/home/screens/activity.dart';
 
@@ -31,25 +30,26 @@ class _HomePageState extends ConsumerState<HomePage> {
             SliverAppBar(
               automaticallyImplyLeading: false,
               backgroundColor: Colors.white,
-              centerTitle: true,
               scrolledUnderElevation: 0,
-              leading: IconButton(onPressed: () {}, icon: const Icon(FluentIcons.list_16_filled)),
+              // leading: IconButton(onPressed: () {}, icon: const Icon(FluentIcons.list_16_filled)),
               title: Text(ref.read(titleProvider),
                   style:
                       GoogleFonts.merriweather(fontWeight: FontWeight.w900).copyWith(fontSize: 22)),
               actions: [
-                Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 4),
-                    child: IconButton(
-                      onPressed: () {
-                        Navigator.push(context,
-                            CupertinoPageRoute(builder: (context) => const ActivityPage()));
-                      },
-                      icon: const Badge(
-                        smallSize: 10,
-                        child: Icon(FluentIcons.alert_16_regular, size: 28),
-                      ),
-                    ))
+                IconButton(
+                  onPressed: () {},
+                  icon: const Icon(FluentIcons.search_16_regular, size: 25),
+                ),
+                IconButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context, CupertinoPageRoute(builder: (context) => const ActivityPage()));
+                  },
+                  icon: const Badge(
+                    smallSize: 10,
+                    child: Icon(FluentIcons.alert_16_regular, size: 25),
+                  ),
+                )
               ],
             ),
           ];
@@ -69,15 +69,15 @@ class _HomePageState extends ConsumerState<HomePage> {
               }).toList()),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.black,
-        shape: const CircleBorder(),
-        elevation: 12,
-        onPressed: () {
-          Navigator.push(context, SlideUpPageRoute(page: const CreatePost()));
-        },
-        child: const Icon(FluentIcons.add_16_filled, color: Colors.white),
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   backgroundColor: Colors.black,
+      //   shape: const CircleBorder(),
+      //   elevation: 12,
+      //   onPressed: () {
+      //     Navigator.push(context, SlideUpPageRoute(page: const CreatePost()));
+      //   },
+      //   child: const Icon(FluentIcons.add_16_filled, color: Colors.white),
+      // ),
     );
   }
 }
@@ -105,26 +105,6 @@ class StoryList extends StatelessWidget {
           ],
         ));
   }
-}
-
-class SlideUpPageRoute extends PageRouteBuilder {
-  final Widget page;
-
-  SlideUpPageRoute({required this.page})
-      : super(
-          transitionDuration: const Duration(milliseconds: 300),
-          pageBuilder: (context, animation, secondaryAnimation) => page,
-          transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            const begin = Offset(0, 1);
-            const end = Offset.zero;
-            const curve = Curves.easeOut;
-
-            var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-            var offsetAnimation = animation.drive(tween);
-
-            return SlideTransition(position: offsetAnimation, child: child);
-          },
-        );
 }
 
 class SlideDownPageRoute extends PageRouteBuilder {

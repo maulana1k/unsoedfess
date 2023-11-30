@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:unsoedfess/features/auth/services/auth_service.dart';
 import 'package:unsoedfess/features/auth/signup.dart';
 import 'package:unsoedfess/features/main_screen/screens/main_screen.dart';
+import 'package:unsoedfess/provider/user_provider.dart';
 
 class SignIn extends ConsumerStatefulWidget {
   const SignIn({super.key});
@@ -12,7 +14,7 @@ class SignIn extends ConsumerStatefulWidget {
 }
 
 class _SignInState extends ConsumerState<SignIn> {
-  final _usernameCtrl = TextEditingController();
+  final _emailCtrl = TextEditingController();
   final _passwordCtrl = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   bool _isLoading = false;
@@ -27,28 +29,16 @@ class _SignInState extends ConsumerState<SignIn> {
   Future<void> signin(BuildContext context) async {
     _startLoading();
     try {
-      // log(ref.watch(titleProvider));
-      // ref.read(titleProvider.notifier).state += " Pro";
-      // final body = {'username': username, 'password': password};
-      // final body = {'username': username, 'password': password};
-      // final response = await ApiService.post(AuthAPI.signin, body);
-      // print(response.body);
-      // final userProfile = UserProfile(
-      //   avatar: "",
-      //   email: '',
-      //   password: _passwordCtrl.text,
-      //   username: _usernameCtrl.text,
-      //   displayName: _usernameCtrl.text,
-      //   bio: "",
-      //   followers: 0,
-      //   followings: 0,
-      //   posts: 0,
-      // );
-      // final container = ProviderContainer();
-      // container.read(userProvider).setUserData(profile: userProfile, token: 'token');
-      // print(container.read(userProvider).profile?.toJson());
-
-      await Future.delayed(const Duration(seconds: 1));
+      final authService = AuthService();
+      final userProfile = await authService.signInWithEmailAndPassword(
+        email: _emailCtrl.text,
+        password: _passwordCtrl.text,
+      );
+      if (userProfile != null) {
+        ref.read(userProvider).setUserData(profile: userProfile);
+      } else {
+        throw 'Profile not found ';
+      }
       _stopLoading();
       if (context.mounted) {
         Navigator.push(context, MainScreenPageRoute(builder: (context) => const MainScreen()));
@@ -75,33 +65,48 @@ class _SignInState extends ConsumerState<SignIn> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Expanded(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text('Unsoedfess',
-                          style: GoogleFonts.merriweather(fontWeight: FontWeight.w900)
-                              .copyWith(fontSize: 26))
-                    ],
-                  ),
-                ],
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text('Unsoedfess',
+                        style: GoogleFonts.merriweather(fontWeight: FontWeight.w900)
+                            .copyWith(fontSize: 26))
+                  ],
+                ),
+              ],
             ),
-            const SizedBox(height: 10),
-            Text("Sign In",
-                style: GoogleFonts.nunitoSans(fontWeight: FontWeight.w800).copyWith(fontSize: 30)),
+            const SizedBox(height: 40),
+            const Text("Sign In", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
             const SizedBox(height: 20),
             Form(
               key: _formKey,
               child: Column(
                 children: [
-                  CustomTextInput(hintText: 'Username', controller: _usernameCtrl),
+                  formField(
+                      hintText: "Email",
+                      controller: _emailCtrl,
+                      validator: (String? val) {
+                        if (val == null || val.isEmpty) {
+                          _stopLoading();
+                          return "Email cannot be empty";
+                        }
+                        return null;
+                      }),
                   const SizedBox(height: 10),
-                  CustomTextInput(
-                      hintText: 'Password', controller: _passwordCtrl, obscureText: true),
+                  formField(
+                      hintText: 'Password',
+                      controller: _passwordCtrl,
+                      obscureText: true,
+                      validator: (String? val) {
+                        if (val!.length < 8) {
+                          _stopLoading();
+                          return "Password atleast 8 characters";
+                        }
+                        return null;
+                      }),
                   const SizedBox(height: 20),
                   SizedBox(
                     width: double.infinity,
@@ -192,4 +197,30 @@ class MainScreenPageRoute extends MaterialPageRoute {
   Duration get transitionDuration => const Duration(milliseconds: 600);
 
   MainScreenPageRoute({builder}) : super(builder: builder);
+}
+
+Widget formField(
+    {hintText, obscureText = false, controller, String? Function(String?)? validator}) {
+  return Row(
+    children: [
+      Expanded(
+        child: TextFormField(
+          controller: controller,
+          validator: validator,
+          obscureText: obscureText,
+          decoration: InputDecoration(
+            isDense: true,
+            contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+            hintStyle: const TextStyle(color: Colors.black54, fontWeight: FontWeight.normal),
+            hintText: hintText,
+            filled: true,
+            fillColor: Colors.grey.shade200,
+            border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(20), borderSide: BorderSide.none),
+            // border: const OutlineInputBorder(borderSide: BorderSide.none),
+          ),
+        ),
+      ),
+    ],
+  );
 }

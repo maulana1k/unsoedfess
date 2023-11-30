@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:unsoedfess/config/firebase_options.dart';
+import 'package:unsoedfess/features/auth/signin.dart';
 import 'package:unsoedfess/features/main_screen/screens/main_screen.dart';
 
 void main() async {
@@ -20,7 +21,7 @@ class MainApp extends ConsumerWidget {
       title: 'Unsoedfess',
       debugShowCheckedModeBanner: false,
       theme: _themeData(),
-      home: const MainScreen(),
+      home: const SignIn(),
     );
   }
 

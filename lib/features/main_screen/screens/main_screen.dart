@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:unsoedfess/features/explore/explore.dart';
 import 'package:unsoedfess/features/main_screen/components/custom_navbar.dart';
 import 'package:unsoedfess/features/home/screens/home_page.dart';
-import 'package:unsoedfess/features/messages/messages.dart';
 import 'package:unsoedfess/features/profile/my_profile.dart';
 import 'package:unsoedfess/features/search/search.dart';
 

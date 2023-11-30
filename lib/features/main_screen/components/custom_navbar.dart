@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:iconify_flutter/icons/bx.dart';
+import 'package:iconify_flutter/icons/uil.dart';
+import 'package:unsoedfess/features/create_post/create_post.dart';
 
 class CustomBottomNavbar extends StatefulWidget {
   const CustomBottomNavbar({super.key, required this.pageIndex, required this.onChangePage});
@@ -34,10 +36,15 @@ class _CustomBottomNavbarState extends State<CustomBottomNavbar> {
           //     icon: Iconify(Bx.search, size: 26, color: Colors.grey.shade600),
           //     selectedIcon: const Iconify(Bx.search, size: 26),
           //     label: 'Search'),
-          NavigationDestination(
-              icon: Iconify(Bx.plus_circle, size: 26, color: Colors.grey.shade600),
-              selectedIcon: const Iconify(Bx.plus, size: 26),
-              label: 'Explore'),
+          IconButton(
+              onPressed: () {
+                Navigator.push(context, SlideUpPageRoute(page: const CreatePost()));
+              },
+              icon: Iconify(Uil.plus_circle, size: 26, color: Colors.grey.shade600)),
+          // NavigationDestination(
+          //     icon: Iconify(Uil.plus_circle, size: 26, color: Colors.grey.shade600),
+          //     selectedIcon: const Iconify(Uil.plus_circle, size: 26),
+          //     label: 'Explore'),
           // NavigationDestination(
           //     icon: Iconify(Bx.shopping_bag, size: 26, color: Colors.grey.shade600),
           //     selectedIcon: const Iconify(Bx.bxs_shopping_bag, size: 26),
@@ -65,4 +72,24 @@ class _CustomBottomNavbarState extends State<CustomBottomNavbar> {
           //     label: 'Profile'),
         ]);
   }
+}
+
+class SlideUpPageRoute extends PageRouteBuilder {
+  final Widget page;
+
+  SlideUpPageRoute({required this.page})
+      : super(
+          transitionDuration: const Duration(milliseconds: 300),
+          pageBuilder: (context, animation, secondaryAnimation) => page,
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            const begin = Offset(0, 1);
+            const end = Offset.zero;
+            const curve = Curves.easeOut;
+
+            var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+            var offsetAnimation = animation.drive(tween);
+
+            return SlideTransition(position: offsetAnimation, child: child);
+          },
+        );
 }
