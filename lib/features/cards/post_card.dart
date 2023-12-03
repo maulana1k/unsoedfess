@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:iconify_flutter/icons/bx.dart';
+import 'package:moment_dart/moment_dart.dart';
 import 'package:unsoedfess/features/cards/image_carousel.dart';
 import 'package:unsoedfess/features/home/models/post_model.dart';
 import 'package:unsoedfess/features/post/post.dart';
@@ -22,6 +23,7 @@ class PostCard extends StatefulWidget {
 }
 
 class _PostCardState extends State<PostCard> {
+  Moment moment = Moment.now();
   bool _isLiked = false;
   void _like() {
     setState(() {
@@ -31,6 +33,8 @@ class _PostCardState extends State<PostCard> {
 
   @override
   Widget build(BuildContext context) {
+    final timestamp =
+        moment.from(widget.postData.timestamp, form: Abbreviation.full, dropPrefixOrSuffix: true);
     final data = widget.postData;
     return Container(
       decoration: BoxDecoration(
@@ -95,7 +99,7 @@ class _PostCardState extends State<PostCard> {
                                                 const TextStyle(color: Colors.grey, fontSize: 14),
                                           ),
                                           TextSpan(
-                                              text: ' ‧ ${data.timestamp.toIso8601String()}',
+                                              text: ' ‧ $timestamp',
                                               style: const TextStyle(
                                                   fontSize: 14, color: Colors.grey)),
                                         ],

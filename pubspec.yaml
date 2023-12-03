@@ -57,6 +57,7 @@ dependencies:
   photo_view: ^0.14.0
   iconify_flutter: ^0.0.5
   firebase_storage: ^11.5.3
+  moment_dart: ^1.1.0
 
 dev_dependencies:
   flutter_test:

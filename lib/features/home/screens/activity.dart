@@ -23,7 +23,7 @@ class _ActivityPageState extends State<ActivityPage> {
           width: double.infinity,
           child: Column(
             children: [
-              NotificationTile(),
+              // NotificationTile(),
             ],
           ),
         ),

@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
@@ -20,11 +21,8 @@ class CreatePost extends ConsumerStatefulWidget {
 }
 
 class _CreatePostState extends ConsumerState<CreatePost> {
-  final firestore = FirebaseStorage.instance;
   final auth = FirebaseAuth.instance;
   List<File> media = [];
-  String content = '';
-
   final contentCtrl = TextEditingController();
 
   Future<void> _openGallery(ImageSource source) async {
@@ -54,7 +52,8 @@ class _CreatePostState extends ConsumerState<CreatePost> {
     }
   }
 
-  Future<void> sendPost() async {
+  Future<void> sendPost(context) async {
+    final firestore = FirebaseFirestore.instance;
     final user = ref.read(userProvider).profile;
     List<String> mediaUrl = [];
     if (media.isNotEmpty) {}
@@ -62,9 +61,27 @@ class _CreatePostState extends ConsumerState<CreatePost> {
         userID: auth.currentUser!.uid,
         author:
             Author(username: user!.username, avatarUrl: user.avatar, displayName: user.displayName),
-        content: content,
+        content: contentCtrl.text,
         media: mediaUrl,
         timestamp: DateTime.now());
+    try {
+      await firestore.collection('posts').add(newPost.toJson());
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Post done'),
+          duration: Duration(seconds: 2), // Adjust as needed
+        ),
+      );
+      Navigator.pop(context);
+    } catch (e) {
+      // Handle error, and show SnackBar on failure
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Error posting: $e'),
+          duration: const Duration(seconds: 2), // Adjust as needed
+        ),
+      );
+    }
   }
 
   @override
@@ -81,7 +98,7 @@ class _CreatePostState extends ConsumerState<CreatePost> {
             style: GoogleFonts.poppins(fontWeight: FontWeight.w600).copyWith(fontSize: 20)),
         actions: [
           TextButton(
-              onPressed: () {},
+              onPressed: () => sendPost(context),
               child: const Text('Post',
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: Colors.blue)))
         ],

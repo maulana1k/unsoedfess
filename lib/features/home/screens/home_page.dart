@@ -8,6 +8,7 @@ import 'package:unsoedfess/features/home/screens/activity.dart';
 
 import 'package:unsoedfess/features/cards/post_card.dart';
 import 'package:unsoedfess/features/cards/story_card.dart';
+import 'package:unsoedfess/features/search/search_page.dart';
 import 'package:unsoedfess/provider/user_provider.dart';
 
 class HomePage extends ConsumerStatefulWidget {
@@ -18,6 +19,10 @@ class HomePage extends ConsumerStatefulWidget {
 }
 
 class _HomePageState extends ConsumerState<HomePage> {
+  Future fetchFeedPost() async {
+    await ref.read(postsProvider).getPosts(10);
+  }
+
   @override
   Widget build(BuildContext context) {
     final homePosts = ref.read(postsProvider).homePosts;
@@ -37,7 +42,10 @@ class _HomePageState extends ConsumerState<HomePage> {
                       GoogleFonts.merriweather(fontWeight: FontWeight.w900).copyWith(fontSize: 22)),
               actions: [
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                        context, MaterialPageRoute(builder: (context) => const SearchPage()));
+                  },
                   icon: const Icon(FluentIcons.search_16_regular, size: 25),
                 ),
                 IconButton(
@@ -59,14 +67,28 @@ class _HomePageState extends ConsumerState<HomePage> {
           onRefresh: () {
             return Future.delayed(const Duration(seconds: 2));
           },
-          child: ListView(
-              physics: const BouncingScrollPhysics(),
-              padding: const EdgeInsets.all(0),
-              children: homePosts.map((post) {
-                return PostCard(
-                  postData: post,
-                );
-              }).toList()),
+          child: FutureBuilder(
+              future: fetchFeedPost(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  // While data is being fetched, show a loading indicator
+                  return const Center(child: CircularProgressIndicator());
+                } else if (snapshot.hasError) {
+                  // If there's an error, display an error message
+                  return Text('Error: ${snapshot.error}');
+                } else if (homePosts.isEmpty) {
+                  return const Text('No Posts');
+                } else {
+                  return ListView(
+                      physics: const BouncingScrollPhysics(),
+                      padding: const EdgeInsets.all(0),
+                      children: homePosts.map((post) {
+                        return PostCard(
+                          postData: post,
+                        );
+                      }).toList());
+                }
+              }),
         ),
       ),
       // floatingActionButton: FloatingActionButton(
