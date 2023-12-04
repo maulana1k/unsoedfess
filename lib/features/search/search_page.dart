@@ -1,7 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:iconify_flutter/icons/bx.dart';
 import 'package:unsoedfess/features/auth/models/user_model.dart';
+import 'package:unsoedfess/features/profile/profile.dart';
 import 'package:unsoedfess/features/search/services/serach_service.dart';
 
 class SearchPage extends StatefulWidget {
@@ -24,8 +26,9 @@ class _SearchPageState extends State<SearchPage> {
         backgroundColor: Colors.white,
         title: Container(
           padding: const EdgeInsets.all(8),
-          decoration:
-              BoxDecoration(color: Colors.grey.shade200, borderRadius: BorderRadius.circular(20)),
+          decoration: BoxDecoration(
+              color: Colors.grey.shade200,
+              borderRadius: BorderRadius.circular(20)),
           child: Row(
             children: [
               const Iconify(Bx.search, size: 20, color: Colors.black),
@@ -35,16 +38,18 @@ class _SearchPageState extends State<SearchPage> {
                     controller: _searchController,
                     onChanged: (value) {
                       if (value.isNotEmpty) {
-                        _searchResults = _searchService.findUsersByUsername(value);
+                        _searchResults =
+                            _searchService.findUsersByUsername(value);
                         setState(() {});
                       }
                     },
                     decoration: const InputDecoration(
                       isCollapsed: true,
-                      hintText: 'Search',
+                      hintText: 'Search user',
                       isDense: true,
                       border: InputBorder.none,
-                      contentPadding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 12),
+                      contentPadding:
+                          EdgeInsets.symmetric(vertical: 0.0, horizontal: 12),
                     )),
               ),
             ],
@@ -73,8 +78,16 @@ class _SearchPageState extends State<SearchPage> {
               // Build your list item
               return ListTile(
                 leading: CircleAvatar(
-                    radius: 40, backgroundImage: NetworkImage(snapshot.data![index].avatar)),
-                onTap: () {},
+                    radius: 40,
+                    backgroundImage:
+                        NetworkImage(snapshot.data![index].avatar)),
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      CupertinoPageRoute(
+                          builder: (context) => ProfilePage(
+                              username: snapshot.data![index].username)));
+                },
                 title: Text(
                   snapshot.data![index].displayName,
                   style: const TextStyle(fontWeight: FontWeight.bold),
@@ -89,7 +102,8 @@ class _SearchPageState extends State<SearchPage> {
     );
   }
 
-  Future<List<Map<String, dynamic>>> findUsersByUsername(String searchTerm) async {
+  Future<List<Map<String, dynamic>>> findUsersByUsername(
+      String searchTerm) async {
     // Your search query implementation
     // This function should return a list of search results based on the provided searchTerm
     // For simplicity, let's return a dummy list here
