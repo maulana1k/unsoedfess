@@ -166,13 +166,16 @@ class _MyProfilePageState extends ConsumerState<MyProfilePage>
                     return BackdropFilter(
                       filter: ImageFilter.blur(
                           sigmaX: 8, sigmaY: 8, tileMode: TileMode.mirror),
-                      child: const Center(
-                        child: AvatarProfile(radius: 160),
+                      child: Center(
+                        child: AvatarProfile(
+                          radius: 160,
+                          avatarUrl: profile.avatar,
+                        ),
                       ),
                     );
                   });
             },
-            child: const AvatarProfile(),
+            child: AvatarProfile(avatarUrl: profile.avatar),
           ),
         ),
         const SizedBox(height: 10),
