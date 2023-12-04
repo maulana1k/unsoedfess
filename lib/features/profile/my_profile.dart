@@ -62,7 +62,7 @@ class _MyProfilePageState extends ConsumerState<MyProfilePage>
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => const HomePage(),
+                    builder: (context) => const Option(),
                   ),
                 );
               },
