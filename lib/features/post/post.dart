@@ -54,7 +54,9 @@ class _PostPageState extends State<PostPage> {
                                   Navigator.push(
                                       context,
                                       CupertinoPageRoute(
-                                          builder: (context) => const ProfilePage()));
+                                          builder: (context) => ProfilePage(
+                                                username: data.author.username,
+                                              )));
                                 },
                                 child: data.author.avatarUrl.isNotEmpty
                                     ? CircleAvatar(

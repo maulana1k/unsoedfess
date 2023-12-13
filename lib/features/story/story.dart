@@ -1,7 +1,5 @@
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:unsoedfess/features/profile/profile.dart';
 
 class StoryView extends StatefulWidget {
   const StoryView({super.key});
@@ -117,8 +115,8 @@ class _StoryPageState extends State<StoryPage> with TickerProviderStateMixin {
                 padding: const EdgeInsets.symmetric(horizontal: 8),
                 child: GestureDetector(
                   onTap: () {
-                    Navigator.push(
-                        context, CupertinoPageRoute(builder: (context) => const ProfilePage()));
+                    // Navigator.push(
+                    //     context, CupertinoPageRoute(builder: (context) => const ProfilePage()));
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,

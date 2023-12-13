@@ -65,7 +65,8 @@ class _PostCardState extends State<PostCard> {
                                   Navigator.push(
                                       context,
                                       CupertinoPageRoute(
-                                          builder: (context) => const ProfilePage()));
+                                          builder: (context) =>
+                                              ProfilePage(username: data.author.username)));
                                 },
                                 child: data.author.avatarUrl.isNotEmpty
                                     ? CircleAvatar(

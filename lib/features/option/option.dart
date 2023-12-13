@@ -34,13 +34,13 @@ class _OptionState extends State<Option> with SingleTickerProviderStateMixin {
         padding: EdgeInsets.zero,
         children: <Widget>[
           ListTile(
-            title: Text('Logout'),
-            leading: Icon(Icons.logout),
+            title: const Text('Logout'),
+            leading: const Icon(Icons.logout),
             onTap: () {
               FirebaseAuth.instance.signOut();
               Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(builder: (context) => SignIn()),
+                MaterialPageRoute(builder: (context) => const SignIn()),
               );
             },
           ),

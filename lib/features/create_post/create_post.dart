@@ -113,7 +113,7 @@ class _CreatePostState extends ConsumerState<CreatePost> {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const AvatarProfile(radius: 24),
+                  AvatarProfile(radius: 24, avatarUrl: user!.avatar),
                   const SizedBox(width: 12),
                   Expanded(
                     child: Column(
@@ -121,7 +121,7 @@ class _CreatePostState extends ConsumerState<CreatePost> {
                       textBaseline: TextBaseline.ideographic,
                       children: [
                         Text(
-                          user!.username,
+                          user.username,
                           style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                         ),
                         TextField(

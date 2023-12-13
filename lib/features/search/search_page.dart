@@ -1,7 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:iconify_flutter/icons/bx.dart';
 import 'package:unsoedfess/features/auth/models/user_model.dart';
+import 'package:unsoedfess/features/profile/profile.dart';
 import 'package:unsoedfess/features/search/services/serach_service.dart';
 
 class SearchPage extends StatefulWidget {
@@ -41,7 +43,7 @@ class _SearchPageState extends State<SearchPage> {
                     },
                     decoration: const InputDecoration(
                       isCollapsed: true,
-                      hintText: 'Search',
+                      hintText: 'Search user',
                       isDense: true,
                       border: InputBorder.none,
                       contentPadding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 12),
@@ -74,7 +76,13 @@ class _SearchPageState extends State<SearchPage> {
               return ListTile(
                 leading: CircleAvatar(
                     radius: 40, backgroundImage: NetworkImage(snapshot.data![index].avatar)),
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      CupertinoPageRoute(
+                          builder: (context) =>
+                              ProfilePage(username: snapshot.data![index].username)));
+                },
                 title: Text(
                   snapshot.data![index].displayName,
                   style: const TextStyle(fontWeight: FontWeight.bold),
